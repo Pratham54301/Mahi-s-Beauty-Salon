@@ -7,6 +7,7 @@ import BookingSection from "@/components/booking-section";
 import WhatsappButton from "@/components/whatsapp-button";
 
 export default function Home() {
+  const currentYear = new Date().getFullYear();
   return (
     <div className="flex min-h-screen w-full flex-col bg-background">
       <Header />
@@ -18,7 +19,7 @@ export default function Home() {
         <BookingSection />
       </main>
       <footer className="bg-muted py-6 text-center text-sm text-muted-foreground">
-        <p>&copy; {new Date().getFullYear()} Mahi's Beauty Salon. All rights reserved.</p>
+        <p>&copy; {currentYear} Mahi's Beauty Salon. All rights reserved.</p>
       </footer>
       <WhatsappButton />
     </div>

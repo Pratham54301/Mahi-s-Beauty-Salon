@@ -14,7 +14,6 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  useFormContext,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -54,7 +53,7 @@ export default function AppointmentForm() {
   useEffect(() => {
     if (state.status === "success") {
       toast({
-        title: "Appointment Booked!",
+        title: "Appointment Request Sent!",
         description: state.message,
       });
       form.reset();
@@ -71,7 +70,18 @@ export default function AppointmentForm() {
     <Card className="shadow-lg">
       <CardContent className="p-6">
         <Form {...form}>
-          <form action={formAction} className="space-y-6">
+          <form
+            onSubmit={form.handleSubmit((data) => {
+              const formData = new FormData();
+              formData.append("name", data.name);
+              formData.append("phone", data.phone);
+              formData.append("email", data.email);
+              formData.append("service", data.service);
+              formData.append("date", data.date.toISOString());
+              formAction(formData);
+            })}
+            className="space-y-6"
+          >
             <FormField
               control={form.control}
               name="name"
@@ -175,7 +185,7 @@ export default function AppointmentForm() {
                 </FormItem>
               )}
             />
-            
+
             <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
               {form.formState.isSubmitting ? (
                 <>
@@ -186,14 +196,6 @@ export default function AppointmentForm() {
                 "Book Now"
               )}
             </Button>
-            {state.status && (
-              <p className={cn(
-                  "text-sm font-medium",
-                  state.status === 'success' ? 'text-green-600' : 'text-destructive'
-              )}>
-                {state.message}
-              </p>
-            )}
           </form>
         </Form>
       </CardContent>
