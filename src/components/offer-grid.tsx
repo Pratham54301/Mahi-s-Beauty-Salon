@@ -60,7 +60,7 @@ export default function OfferGrid() {
                     <div className="overflow-hidden">
                         <Image src={offer.image} alt={offer.title} data-ai-hint={offer.aiHint} width={600} height={400} className="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-110"/>
                     </div>
-                    <CardContent className="p-6 flex flex-col flex-grow">
+                    <CardContent className="p-6 flex flex-col flex-grow text-left">
                         <h3 className="font-headline text-2xl font-bold mb-3 text-primary">{offer.title}</h3>
                         <p className="text-muted-foreground mb-6 flex-grow">{offer.description}</p>
                         <Button asChild className="mt-auto w-full transition-colors duration-300 bg-primary hover:bg-accent text-white">
