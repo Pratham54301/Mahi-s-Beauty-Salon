@@ -37,30 +37,27 @@ export default function ShopSection() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {featuredProducts.map((product) => (
-            <Card key={product.id} className="group relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
-              <CardContent className="p-0">
-                <Link href={`/shop/${product.id}`}>
-                    <Image
-                    src={product.image}
-                    alt={product.name}
-                    data-ai-hint={product.aiHint}
-                    width={400}
-                    height={400}
-                    className="object-cover w-full h-auto aspect-square transition-transform duration-300 group-hover:scale-105"
-                    />
-                </Link>
-                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                   <Button variant="secondary" asChild>
-                     <Link href={`/shop/${product.id}`}>View Details</Link>
-                   </Button>
-                </div>
-              </CardContent>
-              <div className="p-4 bg-white text-center">
+            <Card key={product.id} className="group relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
+              <Link href={`/shop/${product.id}`} className="block">
+                  <CardContent className="p-0">
+                      <Image
+                      src={product.image}
+                      alt={product.name}
+                      data-ai-hint={product.aiHint}
+                      width={400}
+                      height={400}
+                      className="object-cover w-full h-auto aspect-square transition-transform duration-300 group-hover:scale-105"
+                      />
+                  </CardContent>
+              </Link>
+              <div className="p-4 bg-white text-center flex flex-col flex-grow">
                 <h3 className="font-headline text-lg font-semibold truncate">
-                    <Link href={`/shop/${product.id}`}>{product.name}</Link>
+                    <Link href={`/shop/${product.id}`} className="hover:text-primary">{product.name}</Link>
                 </h3>
                 <p className="font-body text-primary font-bold text-xl my-2">INR {product.price.toLocaleString()}</p>
-                <Button className="w-full" onClick={() => handleAddToCart(product)}>Add to Cart</Button>
+                <div className="mt-auto">
+                    <Button className="w-full" onClick={() => handleAddToCart(product)}>Add to Cart</Button>
+                </div>
               </div>
             </Card>
           ))}
