@@ -15,19 +15,10 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Filter } from "lucide-react";
-
-const products = [
-  { id: 1, name: "Intense Hydration Shampoo", price: 1200, category: "Hair", image: "https://placehold.co/400x400.png", aiHint: "shampoo bottle" },
-  { id: 2, name: "Vitamin C Radiance Serum", price: 2500, category: "Skin", image: "https://placehold.co/400x400.png", aiHint: "serum bottle" },
-  { id: 3, name: "Matte Velvet Lipstick", price: 850, category: "Makeup", image: "https://placehold.co/400x400.png", aiHint: "lipstick" },
-  { id: 4, name: "Keratin Smooth Conditioner", price: 1350, category: "Hair", image: "https://placehold.co/400x400.png", aiHint: "conditioner bottle" },
-  { id: 5, name: "24K Gold Face Mask", price: 3200, category: "Skin", image: "https://placehold.co/400x400.png", aiHint: "face mask tube" },
-  { id: 6, name: "Pro-Filter Foundation", price: 2800, category: "Makeup", image: "https://placehold.co/400x400.png", aiHint: "foundation bottle" },
-  { id: 7, name: "Argan Oil Hair Treatment", price: 1800, category: "Hair", image: "https://placehold.co/400x400.png", aiHint: "hair oil" },
-  { id: 8, name: "Hyaluronic Acid Moisturizer", price: 2100, category: "Skin", image: "https://placehold.co/400x400.png", aiHint: "moisturizer jar" },
-  { id: 9, name: "Lakme Absolute Shine Line", price: 500, category: "Brands", image: "https://placehold.co/400x400.png", aiHint: "eyeliner" },
-  { id: 10, name: "De Fabulous Reviver Hair Repair", price: 950, category: "Brands", image: "https://placehold.co/400x400.png", aiHint: "hair repair" },
-];
+import { useCart } from "@/context/cart-context";
+import { useToast } from "@/hooks/use-toast";
+import Link from "next/link";
+import { products } from "@/data/products";
 
 const filters = {
   "Category": ["Hair", "Skin", "Makeup"],
@@ -64,6 +55,16 @@ const FilterSidebar = () => (
 
 export default function ProductGrid() {
   const [sortOrder, setSortOrder] = useState("newest");
+  const { addToCart } = useCart();
+  const { toast } = useToast();
+
+  const handleAddToCart = (product: any) => {
+    addToCart(product);
+    toast({
+        title: "Added to Cart",
+        description: `${product.name} has been added to your cart.`,
+    })
+  };
   
   // Dummy sort logic
   const sortedProducts = [...products].sort((a, b) => {
@@ -119,22 +120,24 @@ export default function ProductGrid() {
               {sortedProducts.map((product) => (
                 <Card key={product.id} className="group relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
                   <CardContent className="p-0">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      data-ai-hint={product.aiHint}
-                      width={400}
-                      height={400}
-                      className="object-cover w-full h-auto aspect-square transition-transform duration-300 group-hover:scale-105"
-                    />
+                    <Link href={`/shop/${product.id}`}>
+                        <Image
+                        src={product.image}
+                        alt={product.name}
+                        data-ai-hint={product.aiHint}
+                        width={400}
+                        height={400}
+                        className="object-cover w-full h-auto aspect-square transition-transform duration-300 group-hover:scale-105"
+                        />
+                    </Link>
                     <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <Button variant="secondary">View Details</Button>
+                        <Button variant="secondary" asChild><Link href={`/shop/${product.id}`}>View Details</Link></Button>
                     </div>
                   </CardContent>
                   <div className="p-4 bg-white text-center">
-                    <h3 className="font-headline text-lg font-semibold truncate">{product.name}</h3>
+                    <h3 className="font-headline text-lg font-semibold truncate"><Link href={`/shop/${product.id}`}>{product.name}</Link></h3>
                     <p className="font-body text-primary font-bold text-xl my-2">INR {product.price.toLocaleString()}</p>
-                    <Button className="w-full">Add to Cart</Button>
+                    <Button className="w-full" onClick={() => handleAddToCart(product)}>Add to Cart</Button>
                   </div>
                 </Card>
               ))}

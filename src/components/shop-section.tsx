@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
+import { useCart } from "@/context/cart-context";
+import { useToast } from "@/hooks/use-toast";
 
 const featuredProducts = [
   { id: 1, name: "Intense Hydration Shampoo", price: 1200, category: "Hair", image: "https://placehold.co/400x400.png", aiHint: "shampoo bottle" },
@@ -11,6 +15,17 @@ const featuredProducts = [
 ];
 
 export default function ShopSection() {
+  const { addToCart } = useCart();
+  const { toast } = useToast();
+
+  const handleAddToCart = (product: any) => {
+    addToCart(product);
+    toast({
+        title: "Added to Cart",
+        description: `${product.name} has been added to your cart.`,
+    })
+  };
+
   return (
     <section id="shop-spotlight" className="py-16 md:py-24 bg-muted">
       <div className="container max-w-7xl">
@@ -24,24 +39,28 @@ export default function ShopSection() {
           {featuredProducts.map((product) => (
             <Card key={product.id} className="group relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
               <CardContent className="p-0">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  data-ai-hint={product.aiHint}
-                  width={400}
-                  height={400}
-                  className="object-cover w-full h-auto aspect-square transition-transform duration-300 group-hover:scale-105"
-                />
+                <Link href={`/shop/${product.id}`}>
+                    <Image
+                    src={product.image}
+                    alt={product.name}
+                    data-ai-hint={product.aiHint}
+                    width={400}
+                    height={400}
+                    className="object-cover w-full h-auto aspect-square transition-transform duration-300 group-hover:scale-105"
+                    />
+                </Link>
                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                    <Button variant="secondary" asChild>
-                     <Link href="/shop">View Details</Link>
+                     <Link href={`/shop/${product.id}`}>View Details</Link>
                    </Button>
                 </div>
               </CardContent>
               <div className="p-4 bg-white text-center">
-                <h3 className="font-headline text-lg font-semibold truncate">{product.name}</h3>
+                <h3 className="font-headline text-lg font-semibold truncate">
+                    <Link href={`/shop/${product.id}`}>{product.name}</Link>
+                </h3>
                 <p className="font-body text-primary font-bold text-xl my-2">INR {product.price.toLocaleString()}</p>
-                <Button className="w-full">Add to Cart</Button>
+                <Button className="w-full" onClick={() => handleAddToCart(product)}>Add to Cart</Button>
               </div>
             </Card>
           ))}

@@ -1,13 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Minus, Plus, Trash2 } from "lucide-react";
-
-const cartItems = [
-    { id: 1, name: "Intense Hydration Shampoo", price: 1200, category: "Hair", image: "https://placehold.co/100x100.png", aiHint: "shampoo bottle", quantity: 1 },
-    { id: 3, name: "Matte Velvet Lipstick", price: 850, category: "Makeup", image: "https://placehold.co/100x100.png", aiHint: "lipstick", quantity: 2 },
-];
+import { useCart } from "@/context/cart-context";
 
 const EmptyCart = () => (
     <div className="text-center py-20">
@@ -20,8 +18,9 @@ const EmptyCart = () => (
 )
 
 export default function CartSummary() {
+    const { cart, removeFromCart, updateQuantity } = useCart();
 
-    if (cartItems.length === 0) {
+    if (cart.length === 0) {
         return (
             <section className="py-16 md:py-24">
                 <div className="container max-w-7xl">
@@ -31,7 +30,7 @@ export default function CartSummary() {
         )
     }
 
-    const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
     const tax = subtotal * 0.18; // 18% GST
     const total = subtotal + tax;
 
@@ -40,9 +39,9 @@ export default function CartSummary() {
       <div className="container max-w-7xl">
         <div className="grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2">
-                <h2 className="text-2xl font-bold mb-6">Your Cart ({cartItems.length} items)</h2>
+                <h2 className="text-2xl font-bold mb-6">Your Cart ({cart.length} items)</h2>
                 <div className="space-y-6">
-                    {cartItems.map(item => (
+                    {cart.map(item => (
                         <div key={item.id} className="flex items-center gap-6 p-4 border rounded-lg">
                            <Image src={item.image} alt={item.name} data-ai-hint={item.aiHint} width={100} height={100} className="rounded-md" />
                            <div className="flex-1">
@@ -51,11 +50,11 @@ export default function CartSummary() {
                                 <p className="text-lg font-bold text-primary mt-2">INR {item.price.toLocaleString()}</p>
                            </div>
                            <div className="flex items-center gap-2">
-                                <Button variant="outline" size="icon" className="h-8 w-8"><Minus className="h-4 w-4"/></Button>
+                                <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => updateQuantity(item.id, item.quantity - 1)} disabled={item.quantity <= 1}><Minus className="h-4 w-4"/></Button>
                                 <Input type="number" value={item.quantity} readOnly className="h-8 w-14 text-center" />
-                                <Button variant="outline" size="icon" className="h-8 w-8"><Plus className="h-4 w-4"/></Button>
+                                <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => updateQuantity(item.id, item.quantity + 1)}><Plus className="h-4 w-4"/></Button>
                            </div>
-                           <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive">
+                           <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive" onClick={() => removeFromCart(item.id)}>
                                 <Trash2 className="h-5 w-5" />
                            </Button>
                         </div>

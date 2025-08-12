@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { cn } from "@/lib/utils";
+import { useCart } from "@/context/cart-context";
+import { Badge } from "./ui/badge";
 
 const servicesMenu = {
   title: "SERVICES",
@@ -65,7 +67,6 @@ const iconNavItems = [
     { href: "/track-order", icon: <Search className="h-5 w-5" />, label: "Track Order" },
     { href: "/login", icon: <User className="h-5 w-5" />, label: "Login" },
     { href: "/wishlist", icon: <Heart className="h-5 w-5" />, label: "Wishlist" },
-    { href: "/cart", icon: <ShoppingCart className="h-5 w-5" />, label: "Cart" },
 ];
 
 
@@ -95,6 +96,12 @@ const MegaMenu = ({ menu }: { menu: typeof servicesMenu | typeof shopMenu }) => 
 
 export default function Header() {
   const pathname = usePathname();
+  const { cart } = useCart();
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const isLinkActive = (href: string) => {
     if (typeof window === 'undefined') return false;
@@ -105,6 +112,8 @@ export default function Header() {
     }
     return pathname.startsWith(href);
   };
+
+  const cartItemCount = isMounted ? cart.reduce((acc, item) => acc + item.quantity, 0) : 0;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -140,6 +149,12 @@ export default function Header() {
                       {item.icon}
                   </Link>
               ))}
+                <Link href="/cart" aria-label="Cart" className="relative text-gray-700 hover:text-primary">
+                    <ShoppingCart className="h-5 w-5" />
+                    {cartItemCount > 0 && (
+                        <Badge variant="destructive" className="absolute -top-2 -right-3 h-5 w-5 justify-center rounded-full p-0">{cartItemCount}</Badge>
+                    )}
+                </Link>
             </div>
 
             <Button asChild>
