@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 
 const servicesMenu = {
   title: "SERVICES",
+  href: "#services",
   columns: [
     {
       title: "Skin",
@@ -32,6 +33,7 @@ const servicesMenu = {
 
 const shopMenu = {
   title: "SHOP",
+  href: "#shop",
   columns: [
     {
       title: "Hair",
@@ -53,21 +55,21 @@ const shopMenu = {
 };
 
 const otherMenus = [
-  { title: "BRIDAL", href: "/bridal" },
-  { title: "RUNWAY REWARDS", href: "/runway-rewards" },
-  { title: "OFFER", href: "/offer" },
-  { title: "FRANCHISE", dropdown: ["Option 1", "Option 2"] },
-  { title: "SALON LOCATOR", href: "/salon-locator" },
-  { title: "CONTACT", dropdown: ["Contact Us", "Feedback"] },
-  { title: "CONTENT HUB", href: "/content-hub" },
+  { title: "BRIDAL", href: "#bridal" },
+  { title: "RUNWAY REWARDS", href: "#runway-rewards" },
+  { title: "OFFER", href: "#offer" },
+  { title: "FRANCHISE", href: "#franchise" },
+  { title: "SALON LOCATOR", href: "#salon-locator" },
+  { title: "CONTACT", href: "#contact" },
+  { title: "CONTENT HUB", href: "#content-hub" },
 ];
 
 const MegaMenu = ({ menu }: { menu: typeof servicesMenu }) => (
-    <div className="absolute left-0 top-full hidden w-full bg-white shadow-lg group-hover:block">
+    <div className="dropdown-menu absolute left-0 top-full hidden w-full bg-white shadow-lg group-hover:block">
         <div className="container mx-auto max-w-7xl px-4">
             <div className="grid grid-cols-4 gap-x-8 py-8">
                 {menu.columns.map((column) => (
-                    <div key={column.title}>
+                    <div key={column.title} className="dropdown-column">
                         <h3 className="mb-4 text-lg font-bold text-primary">{column.title}</h3>
                         <ul className="space-y-3">
                             {column.items.map((item) => (
@@ -85,22 +87,6 @@ const MegaMenu = ({ menu }: { menu: typeof servicesMenu }) => (
     </div>
 );
 
-
-const SimpleDropdown = ({ items }: { items: string[] }) => (
-    <div className="absolute left-0 top-full hidden w-48 rounded-md bg-white py-2 shadow-lg group-hover:block">
-        <ul className="space-y-1">
-            {items.map((item) => (
-                <li key={item}>
-                    <Link href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary">
-                        {item}
-                    </Link>
-                </li>
-            ))}
-        </ul>
-    </div>
-);
-
-
 export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -110,31 +96,22 @@ export default function Header() {
         </Link>
         <nav className="hidden lg:flex items-center space-x-6 text-sm font-medium">
           <div className="group relative">
-            <button className="flex items-center gap-1 text-gray-800 hover:text-primary">
+             <Link href={servicesMenu.href} className="flex items-center gap-1 text-gray-800 hover:text-primary">
               {servicesMenu.title} <ChevronDown className="h-4 w-4" />
-            </button>
+            </Link>
             <MegaMenu menu={servicesMenu} />
           </div>
           <div className="group relative">
-            <button className="flex items-center gap-1 text-gray-800 hover:text-primary">
+            <Link href={shopMenu.href} className="flex items-center gap-1 text-gray-800 hover:text-primary">
               {shopMenu.title} <ChevronDown className="h-4 w-4" />
-            </button>
+            </Link>
             <MegaMenu menu={shopMenu} />
           </div>
           {otherMenus.map((item) => (
             <div key={item.title} className="group relative">
-              {item.href ? (
-                <Link href={item.href} className="text-gray-800 hover:text-primary">
+              <Link href={item.href} className="text-gray-800 hover:text-primary">
                   {item.title}
-                </Link>
-              ) : (
-                <>
-                  <button className="flex items-center gap-1 text-gray-800 hover:text-primary">
-                    {item.title} <ChevronDown className="h-4 w-4" />
-                  </button>
-                  {item.dropdown && <SimpleDropdown items={item.dropdown} />}
-                </>
-              )}
+              </Link>
             </div>
           ))}
         </nav>
@@ -157,7 +134,10 @@ export default function Header() {
                 <div className="flex flex-col space-y-2">
                   <Collapsible>
                     <CollapsibleTrigger className="flex justify-between items-center w-full py-2 text-lg font-medium">
-                      {servicesMenu.title} <ChevronDown className="h-5 w-5" />
+                       <SheetClose asChild>
+                         <Link href={servicesMenu.href}>{servicesMenu.title}</Link>
+                       </SheetClose>
+                       <ChevronDown className="h-5 w-5" />
                     </CollapsibleTrigger>
                     <CollapsibleContent className="pl-4 pt-2 space-y-2">
                       {servicesMenu.columns.map(col => (
@@ -175,7 +155,10 @@ export default function Header() {
                   
                   <Collapsible>
                     <CollapsibleTrigger className="flex justify-between items-center w-full py-2 text-lg font-medium">
-                      {shopMenu.title} <ChevronDown className="h-5 w-5" />
+                      <SheetClose asChild>
+                        <Link href={shopMenu.href}>{shopMenu.title}</Link>
+                      </SheetClose>
+                      <ChevronDown className="h-5 w-5" />
                     </CollapsibleTrigger>
                     <CollapsibleContent className="pl-4 pt-2 space-y-2">
                        {shopMenu.columns.map(col => (
@@ -191,26 +174,12 @@ export default function Header() {
                     </CollapsibleContent>
                   </Collapsible>
 
-                  {otherMenus.map((item) =>
-                    item.href ? (
+                  {otherMenus.map((item) =>(
                       <SheetClose asChild key={item.title}>
                         <Link href={item.href} className="py-2 text-lg font-medium">
                           {item.title}
                         </Link>
                       </SheetClose>
-                    ) : (
-                      <Collapsible key={item.title}>
-                        <CollapsibleTrigger className="flex justify-between items-center w-full py-2 text-lg font-medium">
-                          {item.title} <ChevronDown className="h-5 w-5" />
-                        </CollapsibleTrigger>
-                        <CollapsibleContent className="pl-4 pt-2 space-y-2 font-normal">
-                          {item.dropdown?.map(subItem => (
-                            <SheetClose asChild key={subItem}>
-                              <Link href="#" className="block py-1">{subItem}</Link>
-                            </SheetClose>
-                          ))}
-                        </CollapsibleContent>
-                      </Collapsible>
                     )
                   )}
                 </div>
