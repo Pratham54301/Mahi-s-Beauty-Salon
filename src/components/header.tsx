@@ -2,15 +2,14 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { cn } from "@/lib/utils";
 
 const servicesMenu = {
   title: "SERVICES",
-  href: "#services",
+  href: "/#services",
   columns: [
     {
       title: "Skin",
@@ -33,7 +32,7 @@ const servicesMenu = {
 
 const shopMenu = {
   title: "SHOP",
-  href: "#shop",
+  href: "/shop",
   columns: [
     {
       title: "Hair",
@@ -55,16 +54,16 @@ const shopMenu = {
 };
 
 const otherMenus = [
-  { title: "BRIDAL", href: "#bridal" },
-  { title: "RUNWAY REWARDS", href: "#runway-rewards" },
-  { title: "OFFER", href: "#offer" },
-  { title: "FRANCHISE", href: "#franchise" },
-  { title: "SALON LOCATOR", href: "#salon-locator" },
-  { title: "CONTACT", href: "#contact" },
-  { title: "CONTENT HUB", href: "#content-hub" },
+  { title: "BRIDAL", href: "/#bridal" },
+  { title: "RUNWAY REWARDS", href: "/#runway-rewards" },
+  { title: "OFFER", href: "/#offer" },
+  { title: "FRANCHISE", href: "/#franchise" },
+  { title: "SALON LOCATOR", href: "/#salon-locator" },
+  { title: "CONTACT", href: "/#contact" },
+  { title: "CONTENT HUB", href: "/#content-hub" },
 ];
 
-const MegaMenu = ({ menu }: { menu: typeof servicesMenu }) => (
+const MegaMenu = ({ menu }: { menu: typeof servicesMenu | typeof shopMenu }) => (
     <div className="dropdown-menu absolute left-0 top-full hidden w-full bg-white shadow-lg group-hover:block">
         <div className="container mx-auto max-w-7xl px-4">
             <div className="grid grid-cols-4 gap-x-8 py-8">
@@ -74,7 +73,7 @@ const MegaMenu = ({ menu }: { menu: typeof servicesMenu }) => (
                         <ul className="space-y-3">
                             {column.items.map((item) => (
                                 <li key={item}>
-                                    <Link href="#" className="text-sm text-gray-700 hover:text-primary">
+                                    <Link href={menu.href} className="text-sm text-gray-700 hover:text-primary">
                                         {item}
                                     </Link>
                                 </li>
@@ -146,7 +145,7 @@ export default function Header() {
                             {col.title} <ChevronDown className="h-4 w-4" />
                            </CollapsibleTrigger>
                            <CollapsibleContent className="pl-4 py-2 space-y-2 font-normal">
-                            {col.items.map(item => <SheetClose asChild key={item}><Link href="#" className="block py-1">{item}</Link></SheetClose>)}
+                            {col.items.map(item => <SheetClose asChild key={item}><Link href={servicesMenu.href} className="block py-1">{item}</Link></SheetClose>)}
                            </CollapsibleContent>
                          </Collapsible>
                       ))}
@@ -167,7 +166,7 @@ export default function Header() {
                             {col.title} <ChevronDown className="h-4 w-4" />
                            </CollapsibleTrigger>
                            <CollapsibleContent className="pl-4 py-2 space-y-2 font-normal">
-                            {col.items.map(item => <SheetClose asChild key={item}><Link href="#" className="block py-1">{item}</Link></SheetClose>)}
+                            {col.items.map(item => <SheetClose asChild key={item}><Link href={shopMenu.href} className="block py-1">{item}</Link></SheetClose>)}
                            </CollapsibleContent>
                          </Collapsible>
                       ))}

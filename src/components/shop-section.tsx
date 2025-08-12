@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { Button } from "./ui/button";
+
 export default function ShopSection() {
   return (
     <section id="shop" className="py-16 md:py-24 bg-muted">
@@ -9,7 +12,9 @@ export default function ShopSection() {
           </p>
         </div>
         <div className="text-center">
-          <p>Shop section content goes here.</p>
+            <Button asChild size="lg">
+                <Link href="/shop">Explore Products</Link>
+            </Button>
         </div>
       </div>
     </section>
