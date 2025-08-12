@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 
 const hubContent = [
@@ -60,9 +59,6 @@ export default function ContentHubSection() {
                             </Link>
                         </Card>
                     ))}
-                </div>
-                <div className="text-center">
-                    <Button variant="outline" size="lg">Load More</Button>
                 </div>
             </div>
         </section>
