@@ -9,7 +9,7 @@ import WhatsappButton from '@/components/whatsapp-button';
 export default function OfferPage() {
   return (
     <Fragment>
-      <div className="flex min-h-screen w-full flex-col bg-white">
+      <div className="flex min-h-screen w-full flex-col bg-background">
         <Header />
         <main className="flex-1">
           <OfferHero />

@@ -56,14 +56,14 @@ export default function OfferGrid() {
       <div className="container max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {offers.map((offer, index) => (
-                <Card key={index} className="group overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
+                <Card key={index} className="group overflow-hidden shadow-none border-0 rounded-none text-center">
                     <div className="overflow-hidden">
-                        <Image src={offer.image} alt={offer.title} data-ai-hint={offer.aiHint} width={600} height={400} className="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-110"/>
+                        <Image src={offer.image} alt={offer.title} data-ai-hint={offer.aiHint} width={600} height={400} className="w-full h-auto object-cover aspect-[4/3] transition-transform duration-300 group-hover:scale-110"/>
                     </div>
-                    <CardContent className="p-6 flex flex-col flex-grow text-left">
-                        <h3 className="font-headline text-2xl font-bold mb-3 text-primary">{offer.title}</h3>
-                        <p className="text-muted-foreground mb-6 flex-grow">{offer.description}</p>
-                        <Button asChild className="mt-auto w-full transition-colors duration-300 bg-primary hover:bg-accent text-white">
+                    <CardContent className="p-6">
+                        <h3 className="font-headline text-2xl font-bold mb-3">{offer.title}</h3>
+                        <p className="text-muted-foreground mb-6">{offer.description}</p>
+                        <Button asChild variant="outline" className="mt-auto w-fit px-8 border-foreground text-foreground hover:bg-foreground hover:text-background transition-colors duration-300">
                             <Link href={offer.buttonLink}>Know More</Link>
                         </Button>
                     </CardContent>
