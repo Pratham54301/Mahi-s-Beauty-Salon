@@ -63,7 +63,7 @@ const otherMenus = [
 ];
 
 const MegaMenu = ({ menu }: { menu: typeof servicesMenu }) => (
-  <div className="dropdown-menu absolute top-full left-0 w-full bg-white shadow-lg p-8 hidden group-hover:block transition-all duration-300">
+  <div className="dropdown-menu absolute top-full left-0 w-screen max-w-full bg-white shadow-lg p-8 hidden group-hover:block transition-all duration-300 -translate-x-1/2 ml-[50vw]">
     <div className="container mx-auto max-w-7xl">
       <div className="grid grid-cols-4 gap-8">
         {menu.columns.map((column) => (
@@ -145,72 +145,74 @@ export default function Header() {
                 <span className="sr-only">Open navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-              <div className="flex flex-col space-y-4 p-4">
+            <SheetContent side="right" className="w-full sm:w-[400px] overflow-y-auto">
+              <div className="flex flex-col p-4">
                 <SheetClose asChild>
-                  <Link href="/" className="text-2xl font-bold font-headline text-primary mb-4">
+                  <Link href="/" className="text-2xl font-bold font-headline text-primary mb-4 self-start">
                     Mahi's
                   </Link>
                 </SheetClose>
 
-                <Collapsible>
-                  <CollapsibleTrigger className="flex justify-between items-center w-full text-lg font-medium">
-                    {servicesMenu.title} <ChevronDown className="h-5 w-5" />
-                  </CollapsibleTrigger>
-                  <CollapsibleContent className="pl-4 pt-2 space-y-2">
-                    {servicesMenu.columns.map(col => (
-                       <Collapsible key={col.title}>
-                         <CollapsibleTrigger className="flex justify-between items-center w-full font-semibold">
-                          {col.title} <ChevronDown className="h-4 w-4" />
-                         </CollapsibleTrigger>
-                         <CollapsibleContent className="pl-4 py-2 space-y-2">
-                          {col.items.map(item => <SheetClose asChild key={item}><Link href="#" className="block">{item}</Link></SheetClose>)}
-                         </CollapsibleContent>
-                       </Collapsible>
-                    ))}
-                  </CollapsibleContent>
-                </Collapsible>
-                
-                <Collapsible>
-                  <CollapsibleTrigger className="flex justify-between items-center w-full text-lg font-medium">
-                    {shopMenu.title} <ChevronDown className="h-5 w-5" />
-                  </CollapsibleTrigger>
-                  <CollapsibleContent className="pl-4 pt-2 space-y-2">
-                     {shopMenu.columns.map(col => (
-                       <Collapsible key={col.title}>
-                         <CollapsibleTrigger className="flex justify-between items-center w-full font-semibold">
-                          {col.title} <ChevronDown className="h-4 w-4" />
-                         </CollapsibleTrigger>
-                         <CollapsibleContent className="pl-4 py-2 space-y-2">
-                          {col.items.map(item => <SheetClose asChild key={item}><Link href="#" className="block">{item}</Link></SheetClose>)}
-                         </CollapsibleContent>
-                       </Collapsible>
-                    ))}
-                  </CollapsibleContent>
-                </Collapsible>
+                <div className="flex flex-col space-y-2">
+                  <Collapsible>
+                    <CollapsibleTrigger className="flex justify-between items-center w-full py-2 text-lg font-medium">
+                      {servicesMenu.title} <ChevronDown className="h-5 w-5" />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="pl-4 pt-2 space-y-2">
+                      {servicesMenu.columns.map(col => (
+                         <Collapsible key={col.title}>
+                           <CollapsibleTrigger className="flex justify-between items-center w-full font-semibold py-2">
+                            {col.title} <ChevronDown className="h-4 w-4" />
+                           </CollapsibleTrigger>
+                           <CollapsibleContent className="pl-4 py-2 space-y-2 font-normal">
+                            {col.items.map(item => <SheetClose asChild key={item}><Link href="#" className="block py-1">{item}</Link></SheetClose>)}
+                           </CollapsibleContent>
+                         </Collapsible>
+                      ))}
+                    </CollapsibleContent>
+                  </Collapsible>
+                  
+                  <Collapsible>
+                    <CollapsibleTrigger className="flex justify-between items-center w-full py-2 text-lg font-medium">
+                      {shopMenu.title} <ChevronDown className="h-5 w-5" />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="pl-4 pt-2 space-y-2">
+                       {shopMenu.columns.map(col => (
+                         <Collapsible key={col.title}>
+                           <CollapsibleTrigger className="flex justify-between items-center w-full font-semibold py-2">
+                            {col.title} <ChevronDown className="h-4 w-4" />
+                           </CollapsibleTrigger>
+                           <CollapsibleContent className="pl-4 py-2 space-y-2 font-normal">
+                            {col.items.map(item => <SheetClose asChild key={item}><Link href="#" className="block py-1">{item}</Link></SheetClose>)}
+                           </CollapsibleContent>
+                         </Collapsible>
+                      ))}
+                    </CollapsibleContent>
+                  </Collapsible>
 
-                {otherMenus.map((item) =>
-                  item.href ? (
-                    <SheetClose asChild key={item.title}>
-                      <Link href={item.href} className="text-lg font-medium">
-                        {item.title}
-                      </Link>
-                    </SheetClose>
-                  ) : (
-                    <Collapsible key={item.title}>
-                      <CollapsibleTrigger className="flex justify-between items-center w-full text-lg font-medium">
-                        {item.title} <ChevronDown className="h-5 w-5" />
-                      </CollapsibleTrigger>
-                      <CollapsibleContent className="pl-4 pt-2 space-y-2">
-                        {item.dropdown?.map(subItem => (
-                          <SheetClose asChild key={subItem}>
-                            <Link href="#" className="block">{subItem}</Link>
-                          </SheetClose>
-                        ))}
-                      </CollapsibleContent>
-                    </Collapsible>
-                  )
-                )}
+                  {otherMenus.map((item) =>
+                    item.href ? (
+                      <SheetClose asChild key={item.title}>
+                        <Link href={item.href} className="py-2 text-lg font-medium">
+                          {item.title}
+                        </Link>
+                      </SheetClose>
+                    ) : (
+                      <Collapsible key={item.title}>
+                        <CollapsibleTrigger className="flex justify-between items-center w-full py-2 text-lg font-medium">
+                          {item.title} <ChevronDown className="h-5 w-5" />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="pl-4 pt-2 space-y-2 font-normal">
+                          {item.dropdown?.map(subItem => (
+                            <SheetClose asChild key={subItem}>
+                              <Link href="#" className="block py-1">{subItem}</Link>
+                            </SheetClose>
+                          ))}
+                        </CollapsibleContent>
+                      </Collapsible>
+                    )
+                  )}
+                </div>
               </div>
             </SheetContent>
           </Sheet>
