@@ -9,7 +9,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { cn } from "@/lib/utils";
 
 const servicesMenu = {
-  title: "Services",
+  title: "SERVICES",
   columns: [
     {
       title: "Skin",
@@ -31,7 +31,7 @@ const servicesMenu = {
 };
 
 const shopMenu = {
-  title: "Shop",
+  title: "SHOP",
   columns: [
     {
       title: "Hair",
@@ -63,11 +63,11 @@ const otherMenus = [
 ];
 
 const MegaMenu = ({ menu }: { menu: typeof servicesMenu }) => (
-  <div className="absolute top-full left-0 w-full bg-white shadow-lg p-8 hidden group-hover:block transition-all duration-300">
+  <div className="dropdown-menu absolute top-full left-0 w-full bg-white shadow-lg p-8 hidden group-hover:block transition-all duration-300">
     <div className="container mx-auto max-w-7xl">
       <div className="grid grid-cols-4 gap-8">
         {menu.columns.map((column) => (
-          <div key={column.title}>
+          <div key={column.title} className="dropdown-column">
             <h3 className="font-bold text-primary mb-4 text-lg">{column.title}</h3>
             <ul className="space-y-3">
               {column.items.map((item) => (
@@ -86,7 +86,7 @@ const MegaMenu = ({ menu }: { menu: typeof servicesMenu }) => (
 );
 
 const SimpleDropdown = ({ items }: { items: string[] }) => (
-  <div className="absolute top-full left-0 w-48 bg-white shadow-lg py-2 hidden group-hover:block transition-all duration-300 rounded-md">
+  <div className="dropdown-menu absolute top-full left-0 w-48 bg-white shadow-lg py-2 hidden group-hover:block transition-all duration-300 rounded-md">
     <ul className="space-y-1">
       {items.map((item) => (
         <li key={item}>
