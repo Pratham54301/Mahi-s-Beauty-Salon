@@ -61,6 +61,14 @@ const otherMenus = [
   { title: "CONTACT", href: "/contact" },
 ];
 
+const iconNavItems = [
+    { href: "/track-order", icon: <Search className="h-5 w-5" />, label: "Track Order" },
+    { href: "/login", icon: <User className="h-5 w-5" />, label: "Login" },
+    { href: "/wishlist", icon: <Heart className="h-5 w-5" />, label: "Wishlist" },
+    { href: "/cart", icon: <ShoppingCart className="h-5 w-5" />, label: "Cart" },
+];
+
+
 const MegaMenu = ({ menu }: { menu: typeof servicesMenu | typeof shopMenu }) => (
   <div className="absolute left-0 top-full hidden w-full bg-white shadow-lg group-hover:block">
     <div className="container mx-auto max-w-7xl">
@@ -127,10 +135,11 @@ export default function Header() {
         </nav>
         <div className="flex items-center gap-4">
             <div className="hidden lg:flex items-center gap-4">
-              <Search className="h-5 w-5 text-gray-700 hover:text-primary cursor-pointer"/>
-              <User className="h-5 w-5 text-gray-700 hover:text-primary cursor-pointer"/>
-              <Heart className="h-5 w-5 text-gray-700 hover:text-primary cursor-pointer"/>
-              <ShoppingCart className="h-5 w-5 text-gray-700 hover:text-primary cursor-pointer"/>
+              {iconNavItems.map((item) => (
+                  <Link key={item.href} href={item.href} aria-label={item.label} className="text-gray-700 hover:text-primary">
+                      {item.icon}
+                  </Link>
+              ))}
             </div>
 
             <Button asChild>
