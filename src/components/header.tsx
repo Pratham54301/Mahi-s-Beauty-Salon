@@ -58,9 +58,7 @@ const shopMenu = {
 const otherMenus = [
   { title: "BRIDAL", href: "/bridal" },
   { title: "OFFER", href: "/offer" },
-  { title: "SALON LOCATOR", href: "/salon-locator" },
-  { title: "CONTACT", href: "/#contact" },
-  { title: "CONTENT HUB", href: "/#content-hub" },
+  { title: "CONTACT", href: "/contact" },
 ];
 
 const MegaMenu = ({ menu }: { menu: typeof servicesMenu | typeof shopMenu }) => (
