@@ -6,7 +6,6 @@ import TestimonialsSection from "@/components/testimonials-section";
 import BookingSection from "@/components/booking-section";
 import WhatsappButton from "@/components/whatsapp-button";
 import Footer from "@/components/footer";
-import SalonLocatorSection from "@/components/salon-locator-section";
 import ContactSection from "@/components/contact-section";
 import ContentHubSection from "@/components/content-hub-section";
 
@@ -18,7 +17,6 @@ export default function Home() {
         <HeroSection />
         <ServicesSection />
         <ShopSection />
-        <SalonLocatorSection />
         <ContactSection />
         <ContentHubSection />
         <TestimonialsSection />
