@@ -6,7 +6,6 @@ const footerLinks = {
     { title: "Our Story", href: "/#about" },
     { title: "Contact Us", href: "/#contact" },
     { title: "Salon Locator", href: "/#salon-locator" },
-    { title: "Franchise", href: "/#franchise" },
   ],
   "Customer Service": [
     { title: "FAQs", href: "#" },

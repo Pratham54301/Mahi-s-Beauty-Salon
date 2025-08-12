@@ -58,7 +58,6 @@ const shopMenu = {
 const otherMenus = [
   { title: "BRIDAL", href: "/bridal" },
   { title: "OFFER", href: "/offer" },
-  { title: "FRANCHISE", href: "/#franchise" },
   { title: "SALON LOCATOR", href: "/#salon-locator" },
   { title: "CONTACT", href: "/#contact" },
   { title: "CONTENT HUB", href: "/#content-hub" },
@@ -92,9 +91,10 @@ export default function Header() {
   const pathname = usePathname();
 
   const isLinkActive = (href: string) => {
+    if (typeof window === 'undefined') return false;
     if (href === '/') return pathname === '/';
     if (href.startsWith('/#')) {
-        const hash = typeof window !== 'undefined' ? window.location.hash : '';
+        const hash = window.location.hash;
         return pathname === '/' && hash === href.substring(1);
     }
     return pathname.startsWith(href);
