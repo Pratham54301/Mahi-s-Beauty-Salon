@@ -13,9 +13,9 @@ export default function ContactPage() {
       <div className="flex min-h-screen w-full flex-col bg-background">
         <Header />
         <main className="flex-1">
-          <ContentHubSection />
-          <ContactSection />
           <SalonLocatorMap />
+          <ContactSection />
+          <ContentHubSection />
         </main>
         <Footer />
         <WhatsappButton />

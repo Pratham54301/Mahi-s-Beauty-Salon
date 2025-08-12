@@ -3,118 +3,80 @@
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { Search, MapPin, Phone, Sparkles, Filter, List, Star } from "lucide-react";
+import { Search, MapPin, Phone, Star } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
 import { ScrollArea } from "./ui/scroll-area";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Checkbox } from "./ui/checkbox";
+import Link from "next/link";
 
-const salons = [
-  { name: "Mahi's Salon - Indiranagar", address: "123, 100 Feet Road, Indiranagar, Bangalore", phone: "+91 98765 43210", services: ["Hair", "Skin", "Bridal"] },
-  { name: "Mahi's Salon - Koramangala", address: "456, 5th Block, Koramangala, Bangalore", phone: "+91 98765 43211", services: ["Hair", "Skin", "Offers"] },
-  { name: "Mahi's Salon - Whitefield", address: "789, ITPL Main Road, Whitefield, Bangalore", phone: "+91 98765 43212", services: ["Hair", "Skin"] },
-  { name: "Mahi's Salon - Jayanagar", address: "101, 11th Main, Jayanagar, Bangalore", phone: "+91 98765 43213", services: ["Skin", "Bridal", "Offers"] },
-  { name: "Mahi's Salon - MG Road", address: "212, MG Road, Bangalore", phone: "+91 98765 43214", services: ["Hair", "Bridal"] },
-];
 
-const serviceFilters = ["Bridal", "Hair", "Skin", "Offers"];
+const salon = { 
+  name: "Mahi's Beauty Salon", 
+  address: "No.02 441/2537 G.H. Board, Opp. Navrang Flat, Ahmedabad-380024", 
+  phone: "+91 7405271422", 
+  services: ["Hair", "Skin", "Bridal", "Offers"],
+  mapLink: "https://www.google.com/maps/dir//SHOP+NO+2,+G.H.Board,+441%2F2537,+opp.+Navrang+Flat+Road,+Ambika+Nagar+Society,+Bapunagar,+Ahmedabad,+Gujarat+380024/@23.0337418,72.5416941,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x395e877b1a35eb37:0x1e3eaf9f6d224b74!2m2!1d72.6240957!2d23.0337631?entry=ttu"
+};
+
 
 export default function SalonLocatorMap() {
   return (
-    <div className="flex flex-col md:flex-row h-[calc(100vh-80px)] bg-background">
-      {/* Sidebar / Filters and List */}
-      <aside className="w-full md:w-[450px] border-r flex flex-col">
-        <div className="p-4 border-b">
-          <div className="relative">
-            <Input placeholder="Search by city, pincode, or area" className="pl-10" />
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-          </div>
-          <Button variant="outline" className="w-full mt-2">
-            Use My Location
-          </Button>
+    <section id="salon-locator" className="py-16 md:py-24">
+      <div className="container max-w-7xl">
+        <div className="text-center mb-12">
+            <h2 className="font-headline text-4xl md:text-5xl font-bold text-primary">Find Our Salon</h2>
+            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+                We are conveniently located to serve you.
+            </p>
         </div>
-
-        <div className="p-4 border-b">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="font-headline text-lg font-bold flex items-center gap-2"><Filter className="h-5 w-5"/> Filters</h2>
-            <div className="flex items-center gap-2">
-                <span className="text-sm">Sort By:</span>
-                 <Select defaultValue="distance">
-                    <SelectTrigger className="w-[120px]">
-                        <SelectValue placeholder="Sort" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="distance">Distance</SelectItem>
-                        <SelectItem value="alphabetical">A-Z</SelectItem>
-                    </SelectContent>
-                </Select>
+        <div className="grid md:grid-cols-2 gap-8 items-start">
+            <div className="relative h-96 md:h-full w-full rounded-lg overflow-hidden shadow-lg">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.905943739777!2d72.6215207758342!3d23.02693951608674!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e877b1a35eb37%3A0x1e3eaf9f6d224b74!2sSHOP%20NO%202%2C%20G.H.Board%2C%20441%2F2537%2C%20opp.%20Navrang%20Flat%20Road%2C%20Ambika%20Nagar%20Society%2C%20Bapunagar%2C%20Ahmedabad%2C%20Gujarat%20380024!5e0!3m2!1sen!2sin!4v1716982855585!5m2!1sen!2sin" 
+                    width="100%" 
+                    height="100%" 
+                    style={{ border:0 }} 
+                    allowFullScreen={true} 
+                    loading="lazy" 
+                    referrerPolicy="no-referrer-when-downgrade">
+                </iframe>
             </div>
-          </div>
-           <div className="grid grid-cols-2 gap-4">
-            {serviceFilters.map(service => (
-              <div key={service} className="flex items-center space-x-2">
-                <Checkbox id={service} />
-                <label
-                  htmlFor={service}
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  {service}
-                </label>
-              </div>
-            ))}
-          </div>
+             <Card className="shadow-lg">
+                <CardContent className="p-6">
+                    <h3 className="font-headline font-bold text-2xl text-primary">{salon.name}</h3>
+                    <div className="flex items-start gap-4 text-muted-foreground mt-4">
+                        <MapPin className="h-5 w-5 shrink-0 mt-1"/>
+                        <span>{salon.address}</span>
+                    </div>
+                        <div className="flex items-center gap-4 text-muted-foreground mt-3">
+                        <Phone className="h-5 w-5 shrink-0"/>
+                        <a href={`tel:${salon.phone}`} className="hover:underline">{salon.phone}</a>
+                    </div>
+                    <div className="flex gap-2 mt-4">
+                        {salon.services.map(service => (
+                            <span key={service} className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">{service}</span>
+                        ))}
+                    </div>
+                    <div className="flex items-center gap-1 mt-4 text-amber-500">
+                        <Star className="h-4 w-4 fill-current"/>
+                        <Star className="h-4 w-4 fill-current"/>
+                        <Star className="h-4 w-4 fill-current"/>
+                        <Star className="h-4 w-4 fill-current"/>
+                        <Star className="h-4 w-4 fill-current"/>
+                        <span className="text-xs text-muted-foreground ml-1">(250+)</span>
+                    </div>
+
+                    <div className="flex gap-4 mt-6">
+                        <Button asChild className="flex-1">
+                            <Link href="/#booking">Book Now</Link>
+                        </Button>
+                        <Button asChild variant="outline" className="flex-1">
+                           <a href={salon.mapLink} target="_blank" rel="noopener noreferrer">Get Directions</a>
+                        </Button>
+                    </div>
+                </CardContent>
+            </Card>
         </div>
-        
-        <ScrollArea className="flex-1">
-            <div className="p-4 space-y-4">
-                {salons.map((salon, index) => (
-                    <Card key={index} className="hover:shadow-md transition-shadow">
-                        <CardContent className="p-4">
-                            <h3 className="font-headline font-bold text-lg text-primary">{salon.name}</h3>
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground mt-2">
-                                <MapPin className="h-4 w-4 shrink-0"/>
-                                <span>{salon.address}</span>
-                            </div>
-                             <div className="flex items-center gap-2 text-sm text-muted-foreground mt-2">
-                                <Phone className="h-4 w-4 shrink-0"/>
-                                <a href={`tel:${salon.phone}`} className="hover:underline">{salon.phone}</a>
-                            </div>
-                            <div className="flex gap-2 mt-2">
-                                {salon.services.map(service => (
-                                    <span key={service} className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">{service}</span>
-                                ))}
-                            </div>
-                            <div className="flex items-center gap-1 mt-2 text-amber-500">
-                                <Star className="h-4 w-4 fill-current"/>
-                                <Star className="h-4 w-4 fill-current"/>
-                                <Star className="h-4 w-4 fill-current"/>
-                                <Star className="h-4 w-4 fill-current"/>
-                                <Star className="h-4 w-4"/>
-                                <span className="text-xs text-muted-foreground ml-1">(123)</span>
-                            </div>
-
-                            <div className="flex gap-2 mt-4">
-                                <Button className="flex-1">Book Now</Button>
-                                <Button variant="outline" className="flex-1">Get Directions</Button>
-                            </div>
-                        </CardContent>
-                    </Card>
-                ))}
-            </div>
-        </ScrollArea>
-      </aside>
-
-      {/* Map View */}
-      <main className="flex-1 h-64 md:h-full relative">
-        <Image src="https://placehold.co/1200x800.png" alt="Map of salons" data-ai-hint="city map" fill className="object-cover" />
-        <div className="absolute inset-0 bg-primary/10 pointer-events-none"></div>
-      </main>
-    </div>
+      </div>
+    </section>
   );
 }

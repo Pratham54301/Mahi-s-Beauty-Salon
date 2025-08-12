@@ -4,13 +4,13 @@ import ContactForm from "./contact-form";
 const contactDetails = [
   {
     icon: <MapPin className="h-8 w-8 text-primary" />,
-    title: "Corporate Office",
-    detail: "123 Beauty Avenue, Glamour City, GC 12345",
+    title: "Our Salon",
+    detail: "No.02 441/2537 G.H. Board, Opp. Navrang Flat, Ahmedabad-380024",
   },
   {
     icon: <Phone className="h-8 w-8 text-primary" />,
     title: "Call Us",
-    detail: "+91 98765 43210",
+    detail: "+91 7405271422",
   },
   {
     icon: <Mail className="h-8 w-8 text-primary" />,
