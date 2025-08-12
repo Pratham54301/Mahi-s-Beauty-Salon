@@ -3,19 +3,18 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useFormState } from "react-dom";
-import { useEffect } from "react";
+import { useActionState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
+  useFormContext,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -40,7 +39,7 @@ const initialState: FormState = {
 };
 
 export default function AppointmentForm() {
-  const [state, formAction] = useFormState(bookAppointment, initialState);
+  const [state, formAction] = useActionState(bookAppointment, initialState);
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -67,28 +66,6 @@ export default function AppointmentForm() {
       });
     }
   }, [state, form, toast]);
-
-  function SubmitButton() {
-    // Note: useFormStatus is not used here because we are using useFormState
-    // and passing the pending state down from the server action.
-    // This is a simple example of how to handle pending state with server actions.
-    const { formState } = useFormContext();
-    return (
-      <Button type="submit" className="w-full" disabled={formState.isSubmitting}>
-        {formState.isSubmitting ? (
-          <>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Booking...
-          </>
-        ) : (
-          "Book Now"
-        )}
-      </Button>
-    );
-  }
-
-  // To avoid confusion with useForm's formState, we shadow it.
-  const { formState, ...rest } = form;
 
   return (
     <Card className="shadow-lg">
