@@ -146,11 +146,11 @@ export default function Header() {
         <div className="flex items-center gap-4">
             <div className="hidden lg:flex items-center gap-4">
               {iconNavItems.map((item) => (
-                  <Link key={item.href} href={item.href} aria-label={item.label} className="text-gray-700 hover:text-primary">
+                  <Link key={item.href} href={item.href} aria-label={item.label} className={cn("text-gray-700 hover:text-primary", isLinkActive(item.href) && 'text-primary')}>
                       {item.icon}
                   </Link>
               ))}
-                <Link href="/cart" aria-label="Cart" className="relative text-gray-700 hover:text-primary">
+                <Link href="/cart" aria-label="Cart" className={cn("relative text-gray-700 hover:text-primary", isLinkActive('/cart') && 'text-primary')}>
                     <ShoppingCart className="h-5 w-5" />
                     {cartItemCount > 0 && (
                         <Badge variant="destructive" className="absolute -top-2 -right-3 h-5 w-5 justify-center rounded-full p-0">{cartItemCount}</Badge>
@@ -179,14 +179,14 @@ export default function Header() {
                     <div className="flex justify-between border-t border-b py-4 my-4">
                         {iconNavItems.map((item) => (
                             <SheetClose asChild key={item.href}>
-                                <Link href={item.href} className="flex flex-col items-center gap-1 text-xs font-medium text-gray-700 hover:text-primary">
+                                <Link href={item.href} className={cn("flex flex-col items-center gap-1 text-xs font-medium text-gray-700 hover:text-primary", isLinkActive(item.href) && 'text-primary')}>
                                     {item.icon}
                                     {item.label}
                                 </Link>
                             </SheetClose>
                         ))}
                         <SheetClose asChild>
-                            <Link href="/cart" className="relative flex flex-col items-center gap-1 text-xs font-medium text-gray-700 hover:text-primary">
+                            <Link href="/cart" className={cn("relative flex flex-col items-center gap-1 text-xs font-medium text-gray-700 hover:text-primary", isLinkActive('/cart') && 'text-primary')}>
                                 <ShoppingCart className="h-5 w-5" />
                                 Cart
                                 {cartItemCount > 0 && (
