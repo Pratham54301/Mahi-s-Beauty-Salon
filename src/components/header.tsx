@@ -63,40 +63,41 @@ const otherMenus = [
 ];
 
 const MegaMenu = ({ menu }: { menu: typeof servicesMenu }) => (
-  <div className="dropdown-menu absolute top-full left-0 w-screen max-w-full bg-white shadow-lg p-8 hidden group-hover:block transition-all duration-300 -translate-x-1/2 ml-[50vw]">
-    <div className="container mx-auto max-w-7xl">
-      <div className="grid grid-cols-4 gap-8">
-        {menu.columns.map((column) => (
-          <div key={column.title} className="dropdown-column">
-            <h3 className="font-bold text-primary mb-4 text-lg">{column.title}</h3>
-            <ul className="space-y-3">
-              {column.items.map((item) => (
-                <li key={item}>
-                  <Link href="#" className="text-sm text-gray-700 hover:text-primary transition-colors">
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
+    <div className="absolute left-0 top-full hidden w-full bg-white shadow-lg group-hover:block">
+        <div className="container mx-auto max-w-7xl px-4">
+            <div className="grid grid-cols-4 gap-x-8 py-8">
+                {menu.columns.map((column) => (
+                    <div key={column.title}>
+                        <h3 className="mb-4 text-lg font-bold text-primary">{column.title}</h3>
+                        <ul className="space-y-3">
+                            {column.items.map((item) => (
+                                <li key={item}>
+                                    <Link href="#" className="text-sm text-gray-700 hover:text-primary">
+                                        {item}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))}
+            </div>
+        </div>
     </div>
-  </div>
 );
 
+
 const SimpleDropdown = ({ items }: { items: string[] }) => (
-  <div className="dropdown-menu absolute top-full left-0 w-48 bg-white shadow-lg py-2 hidden group-hover:block transition-all duration-300 rounded-md">
-    <ul className="space-y-1">
-      {items.map((item) => (
-        <li key={item}>
-          <Link href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary transition-colors">
-            {item}
-          </Link>
-        </li>
-      ))}
-    </ul>
-  </div>
+    <div className="absolute left-0 top-full hidden w-48 rounded-md bg-white py-2 shadow-lg group-hover:block">
+        <ul className="space-y-1">
+            {items.map((item) => (
+                <li key={item}>
+                    <Link href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary">
+                        {item}
+                    </Link>
+                </li>
+            ))}
+        </ul>
+    </div>
 );
 
 
@@ -109,26 +110,26 @@ export default function Header() {
         </Link>
         <nav className="hidden lg:flex items-center space-x-6 text-sm font-medium">
           <div className="group relative">
-            <button className="flex items-center gap-1 hover:text-primary transition-colors">
+            <button className="flex items-center gap-1 text-gray-800 hover:text-primary">
               {servicesMenu.title} <ChevronDown className="h-4 w-4" />
             </button>
             <MegaMenu menu={servicesMenu} />
           </div>
           <div className="group relative">
-            <button className="flex items-center gap-1 hover:text-primary transition-colors">
+            <button className="flex items-center gap-1 text-gray-800 hover:text-primary">
               {shopMenu.title} <ChevronDown className="h-4 w-4" />
             </button>
             <MegaMenu menu={shopMenu} />
           </div>
           {otherMenus.map((item) => (
-            <div key={item.title} className={cn("group relative", item.href && " ")}>
+            <div key={item.title} className="group relative">
               {item.href ? (
-                <Link href={item.href} className="hover:text-primary transition-colors">
+                <Link href={item.href} className="text-gray-800 hover:text-primary">
                   {item.title}
                 </Link>
               ) : (
                 <>
-                  <button className="flex items-center gap-1 hover:text-primary transition-colors">
+                  <button className="flex items-center gap-1 text-gray-800 hover:text-primary">
                     {item.title} <ChevronDown className="h-4 w-4" />
                   </button>
                   {item.dropdown && <SimpleDropdown items={item.dropdown} />}
