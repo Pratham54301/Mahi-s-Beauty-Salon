@@ -18,16 +18,23 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
   email: z.string().email({ message: "Please enter a valid email address." }),
-  password: z.string().min(1, { message: "Password cannot be empty." }),
+  password: z.string().min(8, { message: "Password must be at least 8 characters." }),
+  confirmPassword: z.string()
+}).refine(data => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
 });
 
-export default function LoginForm() {
+export default function RegisterForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
+      confirmPassword: ""
     },
   });
 
@@ -40,12 +47,25 @@ export default function LoginForm() {
   return (
     <Card className="w-full max-w-md shadow-lg">
       <CardHeader className="text-center">
-        <CardTitle className="text-3xl font-bold font-headline">Login</CardTitle>
-        <CardDescription>Access your account</CardDescription>
+        <CardTitle className="text-3xl font-bold font-headline">Create an Account</CardTitle>
+        <CardDescription>Join us today</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Full Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="e.g. Anjali Sharma" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="email"
@@ -72,23 +92,31 @@ export default function LoginForm() {
                 </FormItem>
               )}
             />
-             <div className="flex items-center justify-between">
-                <Button variant="link" asChild className="px-0">
-                    <Link href="#">Forgot Password?</Link>
-                </Button>
-            </div>
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Confirm Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="••••••••" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
               {form.formState.isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Logging in...
+                  Creating Account...
                 </>
               ) : (
-                "Login"
+                "Create Account"
               )}
             </Button>
             <div className="text-center text-sm text-muted-foreground">
-                Don't have an account? <Link href="/register" className="font-semibold text-primary hover:underline">Create one</Link>
+                Already have an account? <Link href="/login" className="font-semibold text-primary hover:underline">Login</Link>
             </div>
           </form>
         </Form>
