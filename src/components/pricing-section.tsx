@@ -2,15 +2,15 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 const pricingData = [
-  { service: "Women's Haircut & Style", price: "₹1,500" },
-  { service: "Men's Haircut", price: "₹800" },
-  { service: "Full Hair Color", price: "Starts at ₹3,000" },
-  { service: "Highlights / Balayage", price: "Starts at ₹4,500" },
-  { service: "Signature Facial", price: "₹2,500" },
-  { service: "Event Makeup", price: "₹4,000" },
+  { service: "Women's Haircut & Style", price: "INR 1,500" },
+  { service: "Men's Haircut", price: "INR 800" },
+  { service: "Full Hair Color", price: "Starts at INR 3,000" },
+  { service: "Highlights / Balayage", price: "Starts at INR 4,500" },
+  { service: "Signature Facial", price: "INR 2,500" },
+  { service: "Event Makeup", price: "INR 4,000" },
   { service: "Bridal Makeup Package", price: "Contact us" },
-  { service: "Classic Manicure", price: "₹700" },
-  { service: "Gel Pedicure", price: "₹1,200" },
+  { service: "Classic Manicure", price: "INR 700" },
+  { service: "Gel Pedicure", price: "INR 1,200" },
 ];
 
 export default function PricingSection() {

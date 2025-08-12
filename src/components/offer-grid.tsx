@@ -15,7 +15,7 @@ const offers = [
     },
     {
         title: "Student Special: Haircut + Style",
-        description: "Get a trendy new look! Show your student ID and get a haircut and styling session for just ₹999.",
+        description: "Get a trendy new look! Show your student ID and get a haircut and styling session for just INR 999.",
         image: "https://placehold.co/600x400.png",
         aiHint: "woman getting haircut",
         buttonLink: "#",
@@ -43,7 +43,7 @@ const offers = [
     },
     {
         title: "Refer a Friend, Get Rewarded",
-        description: "Bring a friend along and you both get ₹500 off on services worth ₹2000 or more.",
+        description: "Bring a friend along and you both get INR 500 off on services worth INR 2000 or more.",
         image: "https://placehold.co/600x400.png",
         aiHint: "friends laughing",
         buttonLink: "#",

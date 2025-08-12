@@ -133,7 +133,7 @@ export default function ProductGrid() {
                   </CardContent>
                   <div className="p-4 bg-white text-center">
                     <h3 className="font-headline text-lg font-semibold truncate">{product.name}</h3>
-                    <p className="font-body text-primary font-bold text-xl my-2">₹{product.price.toLocaleString()}</p>
+                    <p className="font-body text-primary font-bold text-xl my-2">INR {product.price.toLocaleString()}</p>
                     <Button className="w-full">Add to Cart</Button>
                   </div>
                 </Card>
