@@ -1,3 +1,4 @@
+
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,22 +23,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { shippingSchema } from "@/lib/schemas";
 
-const formSchema = z.object({
-  email: z.string().email(),
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
-  address: z.string().min(1, "Address is required"),
-  city: z.string().min(1, "City is required"),
-  pincode: z.string().length(6, "Pincode must be 6 digits"),
-  state: z.string().min(1, "State is required"),
-  phone: z.string().regex(/^\d{10}$/, "Please enter a valid 10-digit phone number."),
-  saveInfo: z.boolean().default(false).optional(),
-});
+type CheckoutFormProps = {
+    onSubmit: (values: z.infer<typeof shippingSchema>) => void;
+}
 
-export default function CheckoutForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+export default function CheckoutForm({ onSubmit }: CheckoutFormProps) {
+  const form = useForm<z.infer<typeof shippingSchema>>({
+    resolver: zodResolver(shippingSchema),
     defaultValues: {
         email: "",
         firstName: "",
@@ -49,11 +43,6 @@ export default function CheckoutForm() {
         saveInfo: false,
     },
   });
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    // Here you would handle payment processing
-  }
 
   return (
     <div className="lg:col-span-1">
