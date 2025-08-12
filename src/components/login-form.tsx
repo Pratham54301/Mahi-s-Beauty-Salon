@@ -74,7 +74,7 @@ export default function LoginForm() {
             />
              <div className="flex items-center justify-between">
                 <Button variant="link" asChild className="px-0">
-                    <Link href="#">Forgot Password?</Link>
+                    <Link href="/forgot-password">Forgot Password?</Link>
                 </Button>
             </div>
             <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
