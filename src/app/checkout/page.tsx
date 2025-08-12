@@ -1,14 +1,14 @@
-import { Fragment } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import WhatsappButton from '@/components/whatsapp-button';
 import CheckoutForm from '@/components/checkout-form';
 import OrderSummary from '@/components/order-summary';
+import { CartProvider } from '@/context/cart-context';
 
 
 export default function CheckoutPage() {
   return (
-    <Fragment>
+    <CartProvider>
       <div className="flex min-h-screen w-full flex-col bg-background">
         <Header />
         <main className="flex-1 py-16 md:py-24">
@@ -23,6 +23,6 @@ export default function CheckoutPage() {
         <Footer />
         <WhatsappButton />
       </div>
-    </Fragment>
+    </CartProvider>
   );
 }
