@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -104,7 +105,7 @@ export default function Header() {
   }, []);
 
   const isLinkActive = (href: string) => {
-    if (typeof window === 'undefined') return false;
+    if (!isMounted) return false;
     if (href === '/') return pathname === '/';
     if (href.startsWith('/#')) {
         const hash = window.location.hash;
