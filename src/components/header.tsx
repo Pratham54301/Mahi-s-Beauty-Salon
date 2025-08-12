@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
-import { Menu, ChevronDown } from "lucide-react";
+import { Menu, ChevronDown, Search, User, ShoppingCart, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -65,31 +65,38 @@ const otherMenus = [
 ];
 
 const MegaMenu = ({ menu }: { menu: typeof servicesMenu | typeof shopMenu }) => (
-    <div className="absolute left-1/2 top-full hidden w-screen max-w-7xl -translate-x-1/2 bg-white shadow-lg group-hover:block">
-        <div className="grid grid-cols-4 gap-x-8 px-4 py-8">
-            {menu.columns.map((column) => (
-                <div key={column.title} className="text-left">
-                    <h3 className="mb-4 text-lg font-bold text-primary">{column.title}</h3>
-                    <ul className="space-y-3">
-                        {column.items.map((item) => (
-                            <li key={item}>
-                                <Link href={menu.href} className="text-sm text-gray-700 hover:text-primary">
-                                    {item}
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            ))}
-        </div>
+  <div className="absolute left-0 top-full hidden w-full bg-white shadow-lg group-hover:block">
+    <div className="container mx-auto max-w-7xl">
+      <div className="grid grid-cols-4 gap-x-8 px-4 py-8">
+        {menu.columns.map((column) => (
+          <div key={column.title} className="text-left">
+            <h3 className="mb-4 text-lg font-bold text-primary">{column.title}</h3>
+            <ul className="space-y-3">
+              {column.items.map((item) => (
+                <li key={item}>
+                  <Link href={menu.href} className="text-sm text-gray-700 hover:text-primary">
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
     </div>
+  </div>
 );
+
 
 export default function Header() {
   const pathname = usePathname();
 
   const isLinkActive = (href: string) => {
     if (href === '/') return pathname === '/';
+    if (href.startsWith('/#')) {
+        const hash = typeof window !== 'undefined' ? window.location.hash : '';
+        return pathname === '/' && hash === href.substring(1);
+    }
     return pathname.startsWith(href);
   };
 
@@ -120,77 +127,89 @@ export default function Header() {
             </div>
           ))}
         </nav>
-        <div className="lg:hidden">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="outline" size="icon">
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Open navigation menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-full sm:w-[400px] overflow-y-auto">
-              <div className="flex flex-col p-4">
-                <SheetClose asChild>
-                  <Link href="/" className="text-2xl font-bold font-headline text-primary mb-4 self-start">
-                    Mahi's
-                  </Link>
-                </SheetClose>
+        <div className="flex items-center gap-4">
+            <div className="hidden lg:flex items-center gap-4">
+              <Search className="h-5 w-5 text-gray-700 hover:text-primary cursor-pointer"/>
+              <User className="h-5 w-5 text-gray-700 hover:text-primary cursor-pointer"/>
+              <Heart className="h-5 w-5 text-gray-700 hover:text-primary cursor-pointer"/>
+              <ShoppingCart className="h-5 w-5 text-gray-700 hover:text-primary cursor-pointer"/>
+            </div>
 
-                <div className="flex flex-col space-y-2">
-                  <Collapsible>
-                    <CollapsibleTrigger className="flex justify-between items-center w-full py-2 text-lg font-medium">
-                       <SheetClose asChild>
-                         <Link href={servicesMenu.href}>{servicesMenu.title}</Link>
-                       </SheetClose>
-                       <ChevronDown className="h-5 w-5" />
-                    </CollapsibleTrigger>
-                    <CollapsibleContent className="pl-4 pt-2 space-y-2">
-                      {servicesMenu.columns.map(col => (
-                         <Collapsible key={col.title}>
-                           <CollapsibleTrigger className="flex justify-between items-center w-full font-semibold py-2">
-                            {col.title} <ChevronDown className="h-4 w-4" />
-                           </CollapsibleTrigger>
-                           <CollapsibleContent className="pl-4 py-2 space-y-2 font-normal">
-                            {col.items.map(item => <SheetClose asChild key={item}><Link href={servicesMenu.href} className="block py-1">{item}</Link></SheetClose>)}
-                           </CollapsibleContent>
-                         </Collapsible>
-                      ))}
-                    </CollapsibleContent>
-                  </Collapsible>
-                  
-                  <Collapsible>
-                    <CollapsibleTrigger className="flex justify-between items-center w-full py-2 text-lg font-medium">
-                      <SheetClose asChild>
-                        <Link href={shopMenu.href}>{shopMenu.title}</Link>
-                      </SheetClose>
-                      <ChevronDown className="h-5 w-5" />
-                    </CollapsibleTrigger>
-                    <CollapsibleContent className="pl-4 pt-2 space-y-2">
-                       {shopMenu.columns.map(col => (
-                         <Collapsible key={col.title}>
-                           <CollapsibleTrigger className="flex justify-between items-center w-full font-semibold py-2">
-                            {col.title} <ChevronDown className="h-4 w-4" />
-                           </CollapsibleTrigger>
-                           <CollapsibleContent className="pl-4 py-2 space-y-2 font-normal">
-                            {col.items.map(item => <SheetClose asChild key={item}><Link href={shopMenu.href} className="block py-1">{item}</Link></SheetClose>)}
-                           </CollapsibleContent>
-                         </Collapsible>
-                      ))}
-                    </CollapsibleContent>
-                  </Collapsible>
+            <Button asChild>
+                <Link href="/#booking">Book Appointment</Link>
+            </Button>
+            <div className="lg:hidden">
+            <Sheet>
+                <SheetTrigger asChild>
+                <Button variant="outline" size="icon">
+                    <Menu className="h-6 w-6" />
+                    <span className="sr-only">Open navigation menu</span>
+                </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-full sm:w-[400px] overflow-y-auto">
+                <div className="flex flex-col p-4">
+                    <SheetClose asChild>
+                    <Link href="/" className="text-2xl font-bold font-headline text-primary mb-4 self-start">
+                        Mahi's
+                    </Link>
+                    </SheetClose>
 
-                  {otherMenus.map((item) =>(
-                      <SheetClose asChild key={item.title}>
-                        <Link href={item.href} className={cn("py-2 text-lg font-medium", isLinkActive(item.href) ? "text-primary" : "")}>
-                          {item.title}
-                        </Link>
-                      </SheetClose>
-                    )
-                  )}
+                    <div className="flex flex-col space-y-2">
+                    <Collapsible>
+                        <CollapsibleTrigger className="flex justify-between items-center w-full py-2 text-lg font-medium">
+                        <SheetClose asChild>
+                            <Link href={servicesMenu.href}>{servicesMenu.title}</Link>
+                        </SheetClose>
+                        <ChevronDown className="h-5 w-5" />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="pl-4 pt-2 space-y-2">
+                        {servicesMenu.columns.map(col => (
+                            <Collapsible key={col.title}>
+                            <CollapsibleTrigger className="flex justify-between items-center w-full font-semibold py-2">
+                                {col.title} <ChevronDown className="h-4 w-4" />
+                            </CollapsibleTrigger>
+                            <CollapsibleContent className="pl-4 py-2 space-y-2 font-normal">
+                                {col.items.map(item => <SheetClose asChild key={item}><Link href={servicesMenu.href} className="block py-1">{item}</Link></SheetClose>)}
+                            </CollapsibleContent>
+                            </Collapsible>
+                        ))}
+                        </CollapsibleContent>
+                    </Collapsible>
+                    
+                    <Collapsible>
+                        <CollapsibleTrigger className="flex justify-between items-center w-full py-2 text-lg font-medium">
+                        <SheetClose asChild>
+                            <Link href={shopMenu.href}>{shopMenu.title}</Link>
+                        </SheetClose>
+                        <ChevronDown className="h-5 w-5" />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="pl-4 pt-2 space-y-2">
+                        {shopMenu.columns.map(col => (
+                            <Collapsible key={col.title}>
+                            <CollapsibleTrigger className="flex justify-between items-center w-full font-semibold py-2">
+                                {col.title} <ChevronDown className="h-4 w-4" />
+                            </CollapsibleTrigger>
+                            <CollapsibleContent className="pl-4 py-2 space-y-2 font-normal">
+                                {col.items.map(item => <SheetClose asChild key={item}><Link href={shopMenu.href} className="block py-1">{item}</Link></SheetClose>)}
+                            </CollapsibleContent>
+                            </Collapsible>
+                        ))}
+                        </CollapsibleContent>
+                    </Collapsible>
+
+                    {otherMenus.map((item) =>(
+                        <SheetClose asChild key={item.title}>
+                            <Link href={item.href} className={cn("py-2 text-lg font-medium", isLinkActive(item.href) ? "text-primary" : "")}>
+                            {item.title}
+                            </Link>
+                        </SheetClose>
+                        )
+                    )}
+                    </div>
                 </div>
-              </div>
-            </SheetContent>
-          </Sheet>
+                </SheetContent>
+            </Sheet>
+            </div>
         </div>
       </div>
     </header>
