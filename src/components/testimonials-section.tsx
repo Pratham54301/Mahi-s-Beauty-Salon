@@ -48,30 +48,30 @@ export default function TestimonialsSection() {
             align: "start",
             loop: true,
           }}
-          className="w-full max-w-4xl mx-auto"
+          className="w-full max-w-5xl mx-auto"
         >
           <CarouselContent>
             {testimonials.map((testimonial, index) => (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                <div className="p-1 h-full">
-                  <Card className="flex flex-col justify-between h-full shadow-lg">
-                    <CardContent className="flex flex-col items-center text-center p-6">
-                      <Avatar className="w-20 h-20 mb-4">
+                <div className="p-2 h-full">
+                  <Card className="flex flex-col justify-between h-full shadow-lg bg-background rounded-xl overflow-hidden">
+                    <CardContent className="flex flex-col items-center text-center p-8">
+                      <Avatar className="w-24 h-24 mb-6 border-4 border-primary/50">
                         <AvatarImage src={testimonial.avatarSrc} alt={testimonial.name} data-ai-hint={testimonial.aiHint} />
                         <AvatarFallback>{testimonial.avatarFallback}</AvatarFallback>
                       </Avatar>
-                      <blockquote className="mt-2 border-l-2 border-primary pl-4 italic text-muted-foreground">
+                      <p className="mt-2 text-muted-foreground italic">
                         "{testimonial.quote}"
-                      </blockquote>
-                      <p className="mt-4 font-semibold font-headline text-lg">{testimonial.name}</p>
+                      </p>
+                      <p className="mt-6 font-headline text-xl font-semibold text-primary">{testimonial.name}</p>
                     </CardContent>
                   </Card>
                 </div>
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className="text-primary hover:bg-primary/10 hover:text-primary" />
+          <CarouselNext className="text-primary hover:bg-primary/10 hover:text-primary" />
         </Carousel>
       </div>
     </section>

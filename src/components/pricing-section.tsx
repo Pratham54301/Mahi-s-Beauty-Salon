@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 const pricingData = [
   { service: "Women's Haircut & Style", price: "₹1,500" },
@@ -23,23 +23,26 @@ export default function PricingSection() {
             Transparent pricing for our premium quality services.
           </p>
         </div>
-        <Card className="max-w-4xl mx-auto shadow-lg">
-          <CardHeader>
-            <CardTitle className="font-headline text-3xl">Service Menu</CardTitle>
+        <Card className="max-w-4xl mx-auto shadow-lg rounded-xl overflow-hidden border-primary/20">
+          <CardHeader className="bg-primary/5">
+            <CardTitle className="font-headline text-3xl text-primary flex items-center gap-2">
+              Service Menu
+            </CardTitle>
+            <CardDescription className="text-primary/80">All prices are inclusive of taxes. Gratuity is not included.</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-0">
             <Table>
               <TableHeader>
-                <TableRow>
-                  <TableHead className="text-lg">Service</TableHead>
-                  <TableHead className="text-right text-lg">Price</TableHead>
+                <TableRow className="hover:bg-transparent border-b-primary/20">
+                  <TableHead className="text-lg font-headline text-primary/90 pl-6">Service</TableHead>
+                  <TableHead className="text-right text-lg font-headline text-primary/90 pr-6">Price</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {pricingData.map((item) => (
-                  <TableRow key={item.service}>
-                    <TableCell className="font-medium">{item.service}</TableCell>
-                    <TableCell className="text-right">{item.price}</TableCell>
+                  <TableRow key={item.service} className="border-b-primary/10 last:border-b-0">
+                    <TableCell className="font-medium font-body text-base pl-6 py-4">{item.service}</TableCell>
+                    <TableCell className="text-right font-body text-base pr-6 py-4">{item.price}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

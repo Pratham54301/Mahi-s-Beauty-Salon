@@ -1,24 +1,24 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ScissorsIcon, PaintbrushIcon, LeafIcon, HandIcon } from "lucide-react";
+import { Scissors, Brush, Sparkles, Hand } from "lucide-react";
 
 const services = [
   {
-    icon: <ScissorsIcon className="h-10 w-10 text-primary" />,
+    icon: <Scissors className="h-10 w-10 text-primary" />,
     title: "Hair Styling",
     description: "From classic cuts to the latest trends, our stylists create looks that enhance your natural beauty.",
   },
   {
-    icon: <PaintbrushIcon className="h-10 w-10 text-primary" />,
+    icon: <Brush className="h-10 w-10 text-primary" />,
     title: "Professional Makeup",
     description: "Perfect for special occasions or just a day you want to feel extra glamorous. We use top-quality products.",
   },
   {
-    icon: <LeafIcon className="h-10 w-10 text-primary" />,
+    icon: <Sparkles className="h-10 w-10 text-primary" />,
     title: "Skincare Treatments",
     description: "Rejuvenate your skin with our custom facials, peels, and treatments designed for your skin type.",
   },
   {
-    icon: <HandIcon className="h-10 w-10 text-primary" />,
+    icon: <Hand className="h-10 w-10 text-primary" />,
     title: "Nail Art & Manicures",
     description: "Indulge in our luxurious manicures, pedicures, and stunning nail art by our talented technicians.",
   },
@@ -36,9 +36,9 @@ export default function ServicesSection() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service) => (
-            <Card key={service.title} className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <Card key={service.title} className="text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
               <CardHeader className="items-center">
-                <div className="mb-4">{service.icon}</div>
+                <div className="mb-4 p-4 bg-primary/10 rounded-full">{service.icon}</div>
                 <CardTitle className="font-headline text-2xl">{service.title}</CardTitle>
               </CardHeader>
               <CardContent>
