@@ -57,7 +57,6 @@ const shopMenu = {
 
 const otherMenus = [
   { title: "BRIDAL", href: "/bridal" },
-  { title: "RUNWAY REWARDS", href: "/#runway-rewards" },
   { title: "OFFER", href: "/offer" },
   { title: "FRANCHISE", href: "/#franchise" },
   { title: "SALON LOCATOR", href: "/#salon-locator" },
