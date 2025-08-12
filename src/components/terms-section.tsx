@@ -3,7 +3,7 @@ export default function TermsSection() {
     <section className="py-16 md:py-24 bg-muted">
       <div className="container max-w-4xl">
         <h2 className="font-headline text-3xl md:text-4xl font-bold text-center mb-8">Terms & Conditions</h2>
-        <div className="prose prose-lg max-w-none text-muted-foreground space-y-4">
+        <div className="prose prose-lg max-w-none text-muted-foreground space-y-4 text-center">
           <p>
             All offers are valid for a limited period only and are subject to availability.
           </p>
