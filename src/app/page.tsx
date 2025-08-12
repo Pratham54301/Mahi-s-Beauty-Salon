@@ -6,7 +6,6 @@ import TestimonialsSection from "@/components/testimonials-section";
 import BookingSection from "@/components/booking-section";
 import WhatsappButton from "@/components/whatsapp-button";
 import Footer from "@/components/footer";
-import ContactSection from "@/components/contact-section";
 
 export default function Home() {
   return (
