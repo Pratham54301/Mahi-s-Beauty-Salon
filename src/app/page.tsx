@@ -6,7 +6,6 @@ import TestimonialsSection from "@/components/testimonials-section";
 import BookingSection from "@/components/booking-section";
 import WhatsappButton from "@/components/whatsapp-button";
 import Footer from "@/components/footer";
-import BridalSection from "@/components/bridal-section";
 import RunwayRewardsSection from "@/components/runway-rewards-section";
 import FranchiseSection from "@/components/franchise-section";
 import SalonLocatorSection from "@/components/salon-locator-section";
@@ -21,7 +20,6 @@ export default function Home() {
         <HeroSection />
         <ServicesSection />
         <ShopSection />
-        <BridalSection />
         <RunwayRewardsSection />
         <FranchiseSection />
         <SalonLocatorSection />

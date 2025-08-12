@@ -2,10 +2,12 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { usePathname } from 'next/navigation';
 import { Menu, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { cn } from "@/lib/utils";
 
 const servicesMenu = {
   title: "SERVICES",
@@ -54,7 +56,7 @@ const shopMenu = {
 };
 
 const otherMenus = [
-  { title: "BRIDAL", href: "/#bridal" },
+  { title: "BRIDAL", href: "/bridal" },
   { title: "RUNWAY REWARDS", href: "/#runway-rewards" },
   { title: "OFFER", href: "/offer" },
   { title: "FRANCHISE", href: "/#franchise" },
@@ -64,29 +66,34 @@ const otherMenus = [
 ];
 
 const MegaMenu = ({ menu }: { menu: typeof servicesMenu | typeof shopMenu }) => (
-    <div className="dropdown-menu absolute left-0 top-full hidden w-full bg-white shadow-lg group-hover:block">
-        <div className="container mx-auto max-w-7xl px-4">
-            <div className="grid grid-cols-4 gap-x-8 py-8">
-                {menu.columns.map((column) => (
-                    <div key={column.title} className="dropdown-column">
-                        <h3 className="mb-4 text-lg font-bold text-primary">{column.title}</h3>
-                        <ul className="space-y-3">
-                            {column.items.map((item) => (
-                                <li key={item}>
-                                    <Link href={menu.href} className="text-sm text-gray-700 hover:text-primary">
-                                        {item}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                ))}
-            </div>
+    <div className="absolute left-1/2 top-full hidden w-screen max-w-7xl -translate-x-1/2 bg-white shadow-lg group-hover:block">
+        <div className="grid grid-cols-4 gap-x-8 px-4 py-8">
+            {menu.columns.map((column) => (
+                <div key={column.title} className="text-left">
+                    <h3 className="mb-4 text-lg font-bold text-primary">{column.title}</h3>
+                    <ul className="space-y-3">
+                        {column.items.map((item) => (
+                            <li key={item}>
+                                <Link href={menu.href} className="text-sm text-gray-700 hover:text-primary">
+                                    {item}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            ))}
         </div>
     </div>
 );
 
 export default function Header() {
+  const pathname = usePathname();
+
+  const isLinkActive = (href: string) => {
+    if (href === '/') return pathname === '/';
+    return pathname.startsWith(href);
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-20 max-w-7xl items-center justify-between">
@@ -95,20 +102,20 @@ export default function Header() {
         </Link>
         <nav className="hidden lg:flex items-center space-x-6 text-sm font-medium">
           <div className="group relative">
-             <Link href={servicesMenu.href} className="flex items-center gap-1 text-gray-800 hover:text-primary">
+             <Link href={servicesMenu.href} className={cn("flex items-center gap-1 text-gray-800 hover:text-primary", isLinkActive(servicesMenu.href) && 'text-primary')}>
               {servicesMenu.title} <ChevronDown className="h-4 w-4" />
             </Link>
             <MegaMenu menu={servicesMenu} />
           </div>
           <div className="group relative">
-            <Link href={shopMenu.href} className="flex items-center gap-1 text-gray-800 hover:text-primary">
+            <Link href={shopMenu.href} className={cn("flex items-center gap-1 text-gray-800 hover:text-primary", isLinkActive(shopMenu.href) && 'text-primary')}>
               {shopMenu.title} <ChevronDown className="h-4 w-4" />
             </Link>
             <MegaMenu menu={shopMenu} />
           </div>
           {otherMenus.map((item) => (
             <div key={item.title} className="group relative">
-              <Link href={item.href} className="text-gray-800 hover:text-primary">
+              <Link href={item.href} className={cn("text-gray-800 hover:text-primary", isLinkActive(item.href) && 'text-primary')}>
                   {item.title}
               </Link>
             </div>
@@ -175,7 +182,7 @@ export default function Header() {
 
                   {otherMenus.map((item) =>(
                       <SheetClose asChild key={item.title}>
-                        <Link href={item.href} className="py-2 text-lg font-medium">
+                        <Link href={item.href} className={cn("py-2 text-lg font-medium", isLinkActive(item.href) ? "text-primary" : "")}>
                           {item.title}
                         </Link>
                       </SheetClose>

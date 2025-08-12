@@ -18,7 +18,7 @@ const footerLinks = {
     { title: "Hair Care", href: "/#services" },
     { title: "Skin Care", href: "/#services" },
     { title: "Makeup", href: "/#services" },
-    { title: "Bridal Packages", href: "/#bridal" },
+    { title: "Bridal Packages", href: "/bridal" },
   ],
 };
 
