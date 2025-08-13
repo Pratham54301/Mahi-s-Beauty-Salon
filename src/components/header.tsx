@@ -117,7 +117,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-20 max-w-7xl items-center justify-between">
+      <div className="container flex h-16 max-w-7xl items-center justify-between">
         <Link href="/" className="flex items-center font-headline text-2xl font-bold text-primary">
           Mahi's
         </Link>
@@ -149,8 +149,8 @@ export default function Header() {
                       {item.icon}
                   </Link>
               ))}
-                <Link href="/cart" aria-label="Cart" className="relative text-gray-700 hover:text-primary">
-                    <ShoppingCart className="h-5 w-5" />
+                <Link href="/cart" aria-label="Cart" className={cn("relative text-gray-700 hover:text-primary", isLinkActive('/cart') && 'text-primary')}>
+                    <ShoppingCart className={cn("h-5 w-5", isLinkActive('/cart') && 'text-primary')} />
                     {cartItemCount > 0 && (
                         <Badge variant="destructive" className="absolute -top-2 -right-3 h-5 w-5 justify-center rounded-full p-0">{cartItemCount}</Badge>
                     )}
