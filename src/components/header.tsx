@@ -107,14 +107,15 @@ export default function Header() {
   }, []);
 
   const isLinkActive = (href: string) => {
-    if (href === '/') return pathname === '/';
-    if (href.startsWith('/#')) {
-        const baseHref = href.split('#')[0];
-        // For root paths like '/#services', pathname will be '/'
-        if (baseHref === '') return pathname === '/';
-        return pathname === baseHref;
+    // For root path, check for exact match
+    if (href === '/') {
+        return pathname === '/';
     }
-    return pathname.startsWith(href);
+    // For other paths, check if the pathname starts with the href
+    // This handles nested routes correctly (e.g., /shop/1 will match /shop)
+    // It also handles hash links by ignoring the hash part for comparison
+    const baseHref = href.split('#')[0];
+    return pathname.startsWith(baseHref);
   };
 
   const cartItemCount = isMounted ? cart.reduce((acc, item) => acc + item.quantity, 0) : 0;
