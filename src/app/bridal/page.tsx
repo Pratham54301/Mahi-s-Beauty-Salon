@@ -1,7 +1,6 @@
 import { Fragment } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import WhatsappButton from '@/components/whatsapp-button';
 import BridalHero from '@/components/bridal-hero';
 import BridalIntro from '@/components/bridal-intro';
 import BridalPackages from '@/components/bridal-packages';
@@ -22,7 +21,6 @@ export default function BridalPage() {
           <BridalCTA />
         </main>
         <Footer />
-        <WhatsappButton />
       </div>
     </Fragment>
   );

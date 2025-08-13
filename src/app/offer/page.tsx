@@ -4,7 +4,6 @@ import OfferHero from '@/components/offer-hero';
 import OfferGrid from '@/components/offer-grid';
 import TermsSection from '@/components/terms-section';
 import Footer from '@/components/footer';
-import WhatsappButton from '@/components/whatsapp-button';
 
 export default function OfferPage() {
   return (
@@ -17,7 +16,6 @@ export default function OfferPage() {
           <TermsSection />
         </main>
         <Footer />
-        <WhatsappButton />
       </div>
     </Fragment>
   );

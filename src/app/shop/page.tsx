@@ -2,7 +2,6 @@ import { Fragment } from 'react';
 import Header from '@/components/header';
 import ShopHero from '@/components/shop-hero';
 import ProductGrid from '@/components/product-grid';
-import WhatsappButton from '@/components/whatsapp-button';
 import Footer from '@/components/footer';
 import { CartProvider } from '@/context/cart-context';
 
@@ -17,7 +16,6 @@ export default function ShopPage() {
           <ProductGrid />
         </main>
         <Footer />
-        <WhatsappButton />
       </div>
     </CartProvider>
   );

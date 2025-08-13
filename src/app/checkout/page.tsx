@@ -3,7 +3,6 @@
 
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import WhatsappButton from '@/components/whatsapp-button';
 import CheckoutForm from '@/components/checkout-form';
 import OrderSummary from '@/components/order-summary';
 import { CartProvider } from '@/context/cart-context';
@@ -37,7 +36,6 @@ export default function CheckoutPage() {
             </div>
         </main>
         <Footer />
-        <WhatsappButton />
       </div>
     </CartProvider>
   );

@@ -1,7 +1,6 @@
 import { Fragment } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import WhatsappButton from '@/components/whatsapp-button';
 import CartHero from '@/components/cart-hero';
 import CartSummary from '@/components/cart-summary';
 import { CartProvider } from '@/context/cart-context';
@@ -17,7 +16,6 @@ export default function CartPage() {
           <CartSummary />
         </main>
         <Footer />
-        <WhatsappButton />
       </div>
     </CartProvider>
   );

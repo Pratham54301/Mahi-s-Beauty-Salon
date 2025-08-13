@@ -1,7 +1,6 @@
 import { Fragment } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import WhatsappButton from '@/components/whatsapp-button';
 import SalonLocatorMap from '@/components/salon-locator-map';
 import ContactSection from '@/components/contact-section';
 import ContentHubSection from '@/components/content-hub-section';
@@ -18,7 +17,6 @@ export default function ContactPage() {
           <ContentHubSection />
         </main>
         <Footer />
-        <WhatsappButton />
       </div>
     </Fragment>
   );

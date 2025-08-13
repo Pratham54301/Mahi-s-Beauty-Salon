@@ -4,7 +4,6 @@ import ServicesSection from "@/components/services-section";
 import ShopSection from "@/components/shop-section";
 import TestimonialsSection from "@/components/testimonials-section";
 import BookingSection from "@/components/booking-section";
-import WhatsappButton from "@/components/whatsapp-button";
 import Footer from "@/components/footer";
 import { CartProvider } from "@/context/cart-context";
 
@@ -21,7 +20,6 @@ export default function Home() {
           <BookingSection />
         </main>
         <Footer />
-        <WhatsappButton />
       </div>
     </CartProvider>
   );

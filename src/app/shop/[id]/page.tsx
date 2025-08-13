@@ -1,6 +1,5 @@
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import WhatsappButton from '@/components/whatsapp-button';
 import ProductDetail from '@/components/product-detail';
 import { products } from '@/data/products';
 import { CartProvider } from '@/context/cart-context';
@@ -32,7 +31,6 @@ export default function ProductPage({ params }: ProductPageProps) {
             <ProductDetail product={product} />
         </main>
         <Footer />
-        <WhatsappButton />
       </div>
     </CartProvider>
   );

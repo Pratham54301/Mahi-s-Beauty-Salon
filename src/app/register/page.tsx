@@ -1,7 +1,6 @@
 import { Fragment } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import WhatsappButton from '@/components/whatsapp-button';
 import RegisterForm from '@/components/register-form';
 
 
@@ -14,7 +13,6 @@ export default function RegisterPage() {
             <RegisterForm />
         </main>
         <Footer />
-        <WhatsappButton />
       </div>
     </Fragment>
   );

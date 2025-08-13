@@ -1,7 +1,6 @@
 import { Fragment } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import WhatsappButton from '@/components/whatsapp-button';
 import ForgotPasswordForm from '@/components/forgot-password-form';
 
 
@@ -14,7 +13,6 @@ export default function ForgotPasswordPage() {
             <ForgotPasswordForm />
         </main>
         <Footer />
-        <WhatsappButton />
       </div>
     </Fragment>
   );
