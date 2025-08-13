@@ -98,18 +98,28 @@ const MegaMenu = ({ menu }: { menu: typeof servicesMenu | typeof shopMenu }) => 
 export default function Header() {
   const pathname = usePathname();
   const { cart, isMounted } = useCart();
+  // Mock authentication state
+  const [isAuthenticated, setIsAuthenticated] = React.useState(true);
 
   const isLinkActive = (href: string) => {
     if (href === '/') return pathname === '/';
     // Remove hash-based checking to prevent hydration errors,
     // as window.location.hash is not available on the server.
     if (href.startsWith('/#')) {
-        return false; // Or implement a more sophisticated check if needed.
+        const baseHref = href.split('#')[0];
+        return pathname === baseHref;
     }
     return pathname.startsWith(href);
   };
 
   const cartItemCount = isMounted ? cart.reduce((acc, item) => acc + item.quantity, 0) : 0;
+  
+  const updatedIconNavItems = iconNavItems.map(item => {
+    if (isAuthenticated && item.href === '/login') {
+        return { href: '/profile', icon: <User className="h-5 w-5" />, label: 'Profile' };
+    }
+    return item;
+  });
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -142,7 +152,7 @@ export default function Header() {
         </nav>
         <div className="flex items-center justify-end gap-2">
             <div className="hidden lg:flex items-center gap-4">
-              {iconNavItems.map((item) => (
+              {updatedIconNavItems.map((item) => (
                   <Link key={item.href} href={item.href} aria-label={item.label} className={cn("text-gray-700 hover:text-primary", isLinkActive(item.href) && 'text-primary')}>
                       {item.icon}
                   </Link>
@@ -174,7 +184,7 @@ export default function Header() {
                     </Link>
                     </SheetClose>
                     <div className="flex justify-between border-t border-b py-4 my-4">
-                        {iconNavItems.map((item) => (
+                        {updatedIconNavItems.map((item) => (
                             <SheetClose asChild key={item.href}>
                                 <Link href={item.href} className={cn("flex flex-col items-center gap-1 text-xs font-medium text-gray-700 hover:text-primary", isLinkActive(item.href) && 'text-primary')}>
                                     {item.icon}
@@ -254,5 +264,3 @@ export default function Header() {
     </header>
   );
 }
-
-    
