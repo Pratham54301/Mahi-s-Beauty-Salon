@@ -114,12 +114,13 @@ export default function ResetPasswordForm() {
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            {formStep === 'validate' ? (
+            {formStep === 'validate' && (
               <>
                 <FormField control={form.control} name="email" render={({ field }) => ( <FormItem> <FormLabel>Email</FormLabel> <FormControl> <Input placeholder="you@example.com" {...field} /> </FormControl> <FormMessage /> </FormItem> )}/>
                 <FormField control={form.control} name="tempPassword" render={({ field }) => ( <FormItem> <FormLabel>Temporary Password</FormLabel> <FormControl> <Input placeholder="Enter the temporary password" {...field} /> </FormControl> <FormMessage /> </FormItem> )}/>
               </>
-            ) : (
+            )}
+             {formStep === 'reset' && (
               <>
                 <FormField control={form.control} name="newPassword" render={({ field }) => ( <FormItem> <FormLabel>New Password</FormLabel> <FormControl> <Input type="password" placeholder="••••••••" {...field} /> </FormControl> <FormMessage /> </FormItem> )}/>
                 <FormField control={form.control} name="confirmPassword" render={({ field }) => ( <FormItem> <FormLabel>Confirm New Password</FormLabel> <FormControl> <Input type="password" placeholder="••••••••" {...field} /> </FormControl> <FormMessage /> </FormItem> )}/>
