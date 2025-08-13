@@ -1,9 +1,11 @@
+
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { getAvatarColor } from "@/lib/utils";
 
 const testimonials = [
   {
@@ -62,7 +64,10 @@ export default function TestimonialsSection() {
                     <CardContent className="flex flex-col items-center text-center p-8">
                       <Avatar className="w-24 h-24 mb-6 border-4 border-primary/50">
                         <AvatarImage src={testimonial.avatarSrc} alt={testimonial.name} data-ai-hint={testimonial.aiHint} />
-                        <AvatarFallback className="bg-primary text-primary-foreground font-bold text-3xl">
+                        <AvatarFallback 
+                            className="text-primary-foreground font-bold text-3xl"
+                            style={{ backgroundColor: getAvatarColor(testimonial.name) }}
+                        >
                           {testimonial.name.charAt(0).toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
