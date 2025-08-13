@@ -1,12 +1,14 @@
+
 import { Fragment } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import ResetPasswordForm from '@/components/reset-password-form';
+import { CartProvider } from '@/context/cart-context';
 
 
 export default function ResetPasswordPage() {
   return (
-    <Fragment>
+    <CartProvider>
       <div className="flex min-h-screen w-full flex-col bg-background">
         <Header />
         <main className="flex-1 flex items-center justify-center py-16 md:py-24">
@@ -14,6 +16,6 @@ export default function ResetPasswordPage() {
         </main>
         <Footer />
       </div>
-    </Fragment>
+    </CartProvider>
   );
 }

@@ -115,7 +115,7 @@ export default function Header() {
     return pathname.startsWith(baseHref);
   };
 
-  const cartItemCount = isMounted ? cart.reduce((acc, item) => acc + item.quantity, 0) : 0;
+  const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
   
   const updatedIconNavItems = isMounted ? iconNavItems.map(item => {
     if (isAuthenticated && item.href === '/login') {
@@ -162,7 +162,7 @@ export default function Header() {
               ))}
                 <Link href="/cart" aria-label="Cart" className={cn("relative text-gray-700 hover:text-primary", isLinkActive('/cart') && 'text-primary')}>
                     <ShoppingCart className={cn("h-5 w-5", isLinkActive('/cart') && 'text-primary')} />
-                    {cartItemCount > 0 && (
+                    {isMounted && cartItemCount > 0 && (
                         <Badge variant="destructive" className="absolute -top-2 -right-3 h-5 w-5 justify-center rounded-full p-0">{cartItemCount}</Badge>
                     )}
                 </Link>
@@ -203,7 +203,7 @@ export default function Header() {
                             <Link href="/cart" className={cn("relative flex flex-col items-center gap-1 text-xs font-medium text-gray-700 hover:text-primary", isLinkActive('/cart') && 'text-primary')}>
                                 <ShoppingCart className="h-5 w-5" />
                                 Cart
-                                {cartItemCount > 0 && (
+                                {isMounted && cartItemCount > 0 && (
                                     <Badge variant="destructive" className="absolute -top-2 -right-3 h-5 w-5 justify-center rounded-full p-0">{cartItemCount}</Badge>
                                 )}
                             </Link>
