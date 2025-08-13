@@ -10,28 +10,24 @@ const testimonials = [
     name: "Anjali Sharma",
     quote: "The best salon experience I've ever had! The staff is so talented and friendly. My hair has never looked better. I highly recommend Mahi's!",
     avatarSrc: "https://placehold.co/100x100.png",
-    avatarFallback: "AS",
     aiHint: "happy person",
   },
   {
     name: "Priya Singh",
     quote: "I came for a facial and it was absolutely divine. So relaxing and my skin is glowing. I can't wait to come back for another treatment.",
     avatarSrc: "https://placehold.co/100x100.png",
-    avatarFallback: "PS",
     aiHint: "smiling woman",
   },
   {
     name: "Riya Patel",
     quote: "I got my makeup done for a wedding and it was flawless. It lasted all night and I got so many compliments. The makeup artist was a true professional.",
-    avatarSrc: "https://placehold.co/100x100.png",
-    avatarFallback: "RP",
+    avatarSrc: "",
     aiHint: "elegant woman",
   },
   {
     name: "Sneha Gupta",
     quote: "Their nail art is out of this world! So creative and precise. The salon has such a beautiful and relaxing atmosphere. A perfect pampering session.",
-    avatarSrc: "https://placehold.co/100x100.png",
-    avatarFallback: "SG",
+    avatarSrc: "",
     aiHint: "joyful person",
   },
 ];
@@ -66,7 +62,9 @@ export default function TestimonialsSection() {
                     <CardContent className="flex flex-col items-center text-center p-8">
                       <Avatar className="w-24 h-24 mb-6 border-4 border-primary/50">
                         <AvatarImage src={testimonial.avatarSrc} alt={testimonial.name} data-ai-hint={testimonial.aiHint} />
-                        <AvatarFallback>{testimonial.avatarFallback}</AvatarFallback>
+                        <AvatarFallback className="bg-primary text-primary-foreground font-bold text-3xl">
+                          {testimonial.name.charAt(0).toUpperCase()}
+                        </AvatarFallback>
                       </Avatar>
                       <p className="mt-2 text-muted-foreground italic">
                         "{testimonial.quote}"
