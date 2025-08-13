@@ -35,7 +35,7 @@ export default function ShopSection() {
             Browse our curated selection of premium beauty products.
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-12">
           {featuredProducts.map((product) => (
             <Card key={product.id} className="group relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
               <Link href={`/shop/${product.id}`} className="block">
