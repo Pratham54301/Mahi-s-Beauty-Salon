@@ -36,7 +36,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* About Column */}
           <div className="md:col-span-2 lg:col-span-1">
-            <Link href="/" className="inline-block mb-4 font-headline text-2xl font-bold">
+            <Link href="/" className="inline-block mb-4 font-headline text-2xl font-bold text-primary">
               Mahi's
             </Link>
             <p className="text-muted-foreground">

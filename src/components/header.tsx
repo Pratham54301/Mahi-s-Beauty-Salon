@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -119,7 +118,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-20 max-w-7xl items-center justify-between">
-        <Link href="/" className="flex items-center font-headline text-2xl font-bold">
+        <Link href="/" className="flex items-center font-headline text-2xl font-bold text-primary">
           Mahi's
         </Link>
         <nav className="hidden lg:flex items-center space-x-6 text-sm font-medium">
@@ -172,7 +171,7 @@ export default function Header() {
                 <SheetContent side="right" className="w-full sm:w-[400px] overflow-y-auto">
                 <div className="flex flex-col p-4">
                     <SheetClose asChild>
-                    <Link href="/" className="mb-4 self-start font-headline text-2xl font-bold">
+                    <Link href="/" className="mb-4 self-start font-headline text-2xl font-bold text-primary">
                         Mahi's
                     </Link>
                     </SheetClose>
