@@ -119,16 +119,16 @@ export default function Header() {
 
   const cartItemCount = isMounted ? cart.reduce((acc, item) => acc + item.quantity, 0) : 0;
   
-  const updatedIconNavItems = iconNavItems.map(item => {
+  const updatedIconNavItems = isMounted ? iconNavItems.map(item => {
     if (isAuthenticated && item.href === '/login') {
         return { href: '/profile', icon: <User className="h-5 w-5" />, label: 'Profile' };
     }
     return item;
-  });
+  }) : iconNavItems;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-7xl items-center">
+      <div className="container flex h-14 max-w-7xl items-center justify-between">
         <div className="flex items-center">
             <Link href="/" className="flex items-center font-headline text-2xl font-bold text-primary">
               Mahi's
