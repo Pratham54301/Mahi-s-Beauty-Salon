@@ -97,12 +97,13 @@ const MegaMenu = ({ menu }: { menu: typeof servicesMenu | typeof shopMenu }) => 
 
 export default function Header() {
   const pathname = usePathname();
-  const { cart, isMounted } = useCart();
+  const { cart } = useCart();
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [isMounted, setIsMounted] = React.useState(false);
 
   React.useEffect(() => {
+    setIsMounted(true);
     // Mock authentication check, replace with your actual auth logic
-    // This now only runs on the client, avoiding the hydration mismatch
     setIsAuthenticated(true); 
   }, []);
 
@@ -179,16 +180,17 @@ export default function Header() {
                 </Button>
                 </SheetTrigger>
                 <SheetContent side="right" className="w-full sm:w-[400px] overflow-y-auto p-0">
-                  <SheetHeader className="p-4">
+                  <SheetHeader className="p-4 border-b">
                     <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
-                  </SheetHeader>
-                <div className="flex flex-col p-4">
                     <SheetClose asChild>
-                    <Link href="/" className="mb-4 self-start font-headline text-2xl font-bold text-primary">
+                    <Link href="/" className="self-start font-headline text-2xl font-bold text-primary">
                         Mahi's
                     </Link>
                     </SheetClose>
-                    <div className="flex justify-between border-t border-b py-4 my-4">
+                  </SheetHeader>
+                <div className="flex flex-col p-4">
+                    
+                    <div className="flex justify-between border-b pb-4 my-4">
                         {updatedIconNavItems.map((item) => (
                             <SheetClose asChild key={item.href}>
                                 <Link href={item.href} className={cn("flex flex-col items-center gap-1 text-xs font-medium text-gray-700 hover:text-primary", isLinkActive(item.href) && 'text-primary')}>
