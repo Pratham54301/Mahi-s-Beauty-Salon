@@ -118,8 +118,8 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-7xl items-center">
-        <div className="mr-4 flex items-center">
+      <div className="container flex h-14 max-w-7xl items-center justify-between w-full">
+        <div className="flex items-center">
             <Link href="/" className="flex items-center font-headline text-2xl font-bold text-primary">
               Mahi's
             </Link>
@@ -145,7 +145,7 @@ export default function Header() {
             </div>
           ))}
         </nav>
-        <div className="flex items-center justify-end gap-4">
+        <div className="flex items-center justify-end gap-2">
             <div className="hidden lg:flex items-center gap-4">
               {iconNavItems.map((item) => (
                   <Link key={item.href} href={item.href} aria-label={item.label} className={cn("text-gray-700 hover:text-primary", isLinkActive(item.href) && 'text-primary')}>
