@@ -119,12 +119,12 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-7xl items-center">
-        <div className="mr-4 flex items-center">
+        <div className="mr-4 flex items-center lg:flex-1">
             <Link href="/" className="flex items-center font-headline text-2xl font-bold text-primary">
               Mahi's
             </Link>
         </div>
-        <nav className="hidden lg:flex items-center space-x-6 text-sm font-medium">
+        <nav className="hidden lg:flex items-center justify-center space-x-6 text-sm font-medium">
           <div className="group relative">
              <Link href={servicesMenu.href} className={cn("flex items-center gap-1 text-gray-800 hover:text-primary", isLinkActive(servicesMenu.href) && 'text-primary')}>
               {servicesMenu.title} <ChevronDown className="h-4 w-4" />
