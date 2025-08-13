@@ -18,7 +18,19 @@ const EmptyCart = () => (
 )
 
 export default function CartSummary() {
-    const { cart, removeFromCart, updateQuantity } = useCart();
+    const { cart, removeFromCart, updateQuantity, isMounted } = useCart();
+
+    if (!isMounted) {
+        return (
+             <section className="py-16 md:py-24">
+                <div className="container max-w-7xl">
+                    <div className="text-center py-20">
+                        <h2 className="text-2xl font-bold mb-4">Loading Cart...</h2>
+                    </div>
+                </div>
+            </section>
+        );
+    }
 
     if (cart.length === 0) {
         return (

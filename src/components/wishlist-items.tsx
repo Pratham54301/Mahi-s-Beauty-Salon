@@ -7,8 +7,9 @@ import { Card, CardContent } from "./ui/card";
 import { Heart } from "lucide-react";
 import { useCart } from "@/context/cart-context";
 import { useToast } from "@/hooks/use-toast";
+import { useState, useEffect } from "react";
 
-const wishlistItems = [
+const initialWishlistItems = [
   { id: 2, name: "Vitamin C Radiance Serum", price: 2500, category: "Skin", image: "https://placehold.co/400x400.png", aiHint: "serum bottle" },
   { id: 7, name: "Argan Oil Hair Treatment", price: 1800, category: "Hair", image: "https://placehold.co/400x400.png", aiHint: "hair oil" },
 ];
@@ -27,6 +28,25 @@ const EmptyWishlist = () => (
 export default function WishlistItems() {
     const { addToCart } = useCart();
     const { toast } = useToast();
+    const [wishlistItems, setWishlistItems] = useState(initialWishlistItems);
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+        // Here you would fetch wishlist items from localStorage or an API
+    }, []);
+
+    if (!isMounted) {
+         return (
+            <section className="py-16 md:py-24">
+                <div className="container max-w-7xl">
+                    <div className="text-center py-20">
+                        <h2 className="text-2xl font-bold mb-4">Loading Wishlist...</h2>
+                    </div>
+                </div>
+            </section>
+        );
+    }
 
     if (wishlistItems.length === 0) {
         return (
@@ -46,27 +66,37 @@ export default function WishlistItems() {
         });
     };
 
+    const handleRemoveFromWishlist = (productId: number) => {
+        setWishlistItems(prev => prev.filter(item => item.id !== productId));
+        toast({
+            title: "Removed from Wishlist",
+            description: `The item has been removed from your wishlist.`,
+        });
+    }
+
   return (
     <section className="py-16 md:py-24 bg-background">
       <div className="container max-w-7xl">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {wishlistItems.map((product) => (
                 <Card key={product.id} className="group relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
-                    <Link href={`/shop/${product.id}`} className="block">
+                    <div className="block">
                         <CardContent className="p-0 relative">
-                            <Image
-                                src={product.image}
-                                alt={product.name}
-                                data-ai-hint={product.aiHint}
-                                width={400}
-                                height={400}
-                                className="object-cover w-full h-auto aspect-square transition-transform duration-300 group-hover:scale-105"
-                            />
-                            <Button variant="secondary" size="icon" className="absolute top-3 right-3 h-8 w-8 rounded-full bg-white/80 hover:bg-white text-destructive">
+                            <Link href={`/shop/${product.id}`}>
+                                <Image
+                                    src={product.image}
+                                    alt={product.name}
+                                    data-ai-hint={product.aiHint}
+                                    width={400}
+                                    height={400}
+                                    className="object-cover w-full h-auto aspect-square transition-transform duration-300 group-hover:scale-105"
+                                />
+                            </Link>
+                            <Button variant="secondary" size="icon" onClick={() => handleRemoveFromWishlist(product.id)} className="absolute top-3 right-3 h-8 w-8 rounded-full bg-white/80 hover:bg-white text-destructive">
                                 <Heart className="h-4 w-4 fill-current"/>
                             </Button>
                         </CardContent>
-                    </Link>
+                    </div>
                     <div className="p-4 bg-white text-center flex flex-col flex-grow">
                         <h3 className="font-headline text-lg font-semibold truncate">
                             <Link href={`/shop/${product.id}`} className="hover:text-primary">{product.name}</Link>
