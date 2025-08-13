@@ -1,3 +1,4 @@
+
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -47,6 +48,8 @@ export default function AppointmentForm() {
       name: "",
       phone: "",
       email: "",
+      service: "",
+      date: undefined,
     },
   });
 
