@@ -39,6 +39,10 @@ export default function PaymentForm() {
     resolver: zodResolver(paymentSchema),
     defaultValues: {
         paymentMethod: "card",
+        cardNumber: "",
+        cardExpiry: "",
+        cardCvc: "",
+        upiId: "",
     },
   });
 
