@@ -1,11 +1,15 @@
+
 "use client";
 
 import Image from "next/image";
-import { useCart } from "@/context/cart-context";
+
+const items = [
+    { id: 1, name: "Intense Hydration Shampoo", price: 1200, quantity: 1, image: "https://placehold.co/64x64.png", aiHint: "shampoo bottle" },
+    { id: 2, name: "Vitamin C Radiance Serum", price: 2500, quantity: 1, image: "https://placehold.co/64x64.png", aiHint: "serum bottle" },
+];
 
 export default function OrderSummary() {
-    const { cart } = useCart();
-    const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    const subtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
     const shipping = 50; // Flat rate shipping
     const total = subtotal + shipping;
 
@@ -13,7 +17,7 @@ export default function OrderSummary() {
     <div className="lg:col-span-1 p-8 bg-muted rounded-lg h-fit sticky top-28">
         <h2 className="text-xl font-semibold mb-6">Order Summary</h2>
         <div className="space-y-4">
-            {cart.map(item => (
+            {items.map(item => (
                 <div key={item.id} className="flex items-center gap-4">
                     <div className="relative">
                         <Image src={item.image} alt={item.name} data-ai-hint={item.aiHint} width={64} height={64} className="rounded-md" />

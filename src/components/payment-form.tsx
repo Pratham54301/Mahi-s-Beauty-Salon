@@ -18,8 +18,6 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "./ui/card";
 import { Loader2 } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 
 const paymentSchema = z.object({
   paymentMethod: z.enum(["card", "upi", "netbanking"]),
@@ -53,11 +51,6 @@ export default function PaymentForm() {
 
   return (
     <div className="lg:col-span-1">
-        <div className="mb-6">
-            <Link href="/">
-                <Image src="/logo.png" alt="Mahi's Beauty Salon" width={150} height={50} />
-            </Link>
-        </div>
       <Tabs defaultValue="card" className="w-full" onValueChange={(value) => form.setValue('paymentMethod', value as any)}>
         <TabsList className="grid w-full grid-cols-3 mb-6">
           <TabsTrigger value="card">Credit/Debit Card</TabsTrigger>
@@ -107,5 +100,3 @@ export default function PaymentForm() {
     </div>
   );
 }
-
-    

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Facebook, Twitter, Instagram, Youtube } from "lucide-react";
-import Image from "next/image";
 
 const footerLinks = {
   "About Us": [
@@ -37,8 +36,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* About Column */}
           <div className="md:col-span-2 lg:col-span-1">
-            <Link href="/" className="inline-block mb-4">
-                <Image src="/logo.png" alt="Mahi's Beauty Salon" width={140} height={45} />
+            <Link href="/" className="inline-block mb-4 font-headline text-2xl font-bold">
+              Mahi's
             </Link>
             <p className="text-muted-foreground">
               Experience the art of beauty, where expertise meets elegance. Your journey to radiance begins here.
@@ -76,5 +75,3 @@ export default function Footer() {
     </footer>
   );
 }
-
-    
