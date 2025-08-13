@@ -11,6 +11,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { cn } from "@/lib/utils";
 import { useCart } from "@/context/cart-context";
 import { Badge } from "./ui/badge";
+import Image from "next/image";
 
 const servicesMenu = {
   title: "SERVICES",
@@ -119,8 +120,8 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-20 max-w-7xl items-center justify-between">
-        <Link href="/" className="text-2xl font-bold font-headline text-primary">
-          Mahi's
+        <Link href="/" className="flex items-center">
+            <Image src="/logo.png" alt="Mahi's Beauty Salon" width={120} height={40} />
         </Link>
         <nav className="hidden lg:flex items-center space-x-6 text-sm font-medium">
           <div className="group relative">
@@ -151,7 +152,7 @@ export default function Header() {
                   </Link>
               ))}
                 <Link href="/cart" aria-label="Cart" className={cn("relative text-gray-700 hover:text-primary", isLinkActive('/cart') && 'text-primary')}>
-                    <ShoppingCart className="h-5 w-5" />
+                    <ShoppingCart className={cn("h-5 w-5", isLinkActive('/cart') && 'text-primary')} />
                     {cartItemCount > 0 && (
                         <Badge variant="destructive" className="absolute -top-2 -right-3 h-5 w-5 justify-center rounded-full p-0">{cartItemCount}</Badge>
                     )}
@@ -172,8 +173,8 @@ export default function Header() {
                 <SheetContent side="right" className="w-full sm:w-[400px] overflow-y-auto">
                 <div className="flex flex-col p-4">
                     <SheetClose asChild>
-                    <Link href="/" className="text-2xl font-bold font-headline text-primary mb-4 self-start">
-                        Mahi's
+                    <Link href="/" className="mb-4 self-start">
+                        <Image src="/logo.png" alt="Mahi's Beauty Salon" width={120} height={40} />
                     </Link>
                     </SheetClose>
                     <div className="flex justify-between border-t border-b py-4 my-4">
