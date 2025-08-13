@@ -71,7 +71,7 @@ const iconNavItems = [
 
 
 const MegaMenu = ({ menu }: { menu: typeof servicesMenu | typeof shopMenu }) => (
-  <div className="absolute left-0 top-full hidden w-screen bg-white shadow-lg group-hover:block">
+  <div className="absolute left-0 top-full hidden w-full bg-white shadow-lg group-hover:block">
     <div className="container mx-auto max-w-7xl">
       <div className="grid grid-cols-4 gap-x-8 px-4 py-8">
         {menu.columns.map((column) => (
@@ -119,12 +119,12 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-7xl items-center">
-        <div className="mr-4 flex items-center lg:flex-1">
+        <div className="mr-4 flex items-center">
             <Link href="/" className="flex items-center font-headline text-2xl font-bold text-primary">
               Mahi's
             </Link>
         </div>
-        <nav className="hidden lg:flex items-center justify-center space-x-6 text-sm font-medium">
+        <nav className="hidden lg:flex flex-1 items-center justify-center space-x-6 text-sm font-medium">
           <div className="group relative">
              <Link href={servicesMenu.href} className={cn("flex items-center gap-1 text-gray-800 hover:text-primary", isLinkActive(servicesMenu.href) && 'text-primary')}>
               {servicesMenu.title} <ChevronDown className="h-4 w-4" />
@@ -145,7 +145,7 @@ export default function Header() {
             </div>
           ))}
         </nav>
-        <div className="flex flex-1 items-center justify-end gap-4">
+        <div className="flex items-center justify-end gap-4">
             <div className="hidden lg:flex items-center gap-4">
               {iconNavItems.map((item) => (
                   <Link key={item.href} href={item.href} aria-label={item.label} className={cn("text-gray-700 hover:text-primary", isLinkActive(item.href) && 'text-primary')}>
