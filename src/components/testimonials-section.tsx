@@ -11,13 +11,13 @@ const testimonials = [
   {
     name: "Anjali Sharma",
     quote: "The best salon experience I've ever had! The staff is so talented and friendly. My hair has never looked better. I highly recommend Mahi's!",
-    avatarSrc: "https://placehold.co/100x100.png",
+    avatarSrc: "",
     aiHint: "happy person",
   },
   {
     name: "Priya Singh",
     quote: "I came for a facial and it was absolutely divine. So relaxing and my skin is glowing. I can't wait to come back for another treatment.",
-    avatarSrc: "https://placehold.co/100x100.png",
+    avatarSrc: "",
     aiHint: "smiling woman",
   },
   {
