@@ -14,8 +14,10 @@ function OrderSuccessContent() {
     const { clearCart } = useCart();
 
     useEffect(() => {
-        const newOrderId = Math.random().toString(36).substring(2, 10).toUpperCase();
-        setOrderId(newOrderId);
+        // Generate order ID on the client side to avoid hydration mismatch
+        setOrderId(Math.random().toString(36).substring(2, 10).toUpperCase());
+        
+        // Clear cart after order is successful
         clearCart();
     }, [clearCart]);
 

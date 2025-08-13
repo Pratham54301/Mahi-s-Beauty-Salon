@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -96,12 +97,7 @@ const MegaMenu = ({ menu }: { menu: typeof servicesMenu | typeof shopMenu }) => 
 
 export default function Header() {
   const pathname = usePathname();
-  const { cart } = useCart();
-  const [isMounted, setIsMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const { cart, isMounted } = useCart();
 
   const isLinkActive = (href: string) => {
     if (!isMounted) return false;
