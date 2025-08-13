@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { Menu, ChevronDown, Search, User, ShoppingCart, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/context/cart-context";
@@ -107,13 +107,9 @@ export default function Header() {
   }, []);
 
   const isLinkActive = (href: string) => {
-    // For root path, check for exact match
     if (href === '/') {
         return pathname === '/';
     }
-    // For other paths, check if the pathname starts with the href
-    // This handles nested routes correctly (e.g., /shop/1 will match /shop)
-    // It also handles hash links by ignoring the hash part for comparison
     const baseHref = href.split('#')[0];
     return pathname.startsWith(baseHref);
   };
@@ -182,7 +178,10 @@ export default function Header() {
                     <span className="sr-only">Open navigation menu</span>
                 </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-full sm:w-[400px] overflow-y-auto">
+                <SheetContent side="right" className="w-full sm:w-[400px] overflow-y-auto p-0">
+                  <SheetHeader className="p-4">
+                    <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
+                  </SheetHeader>
                 <div className="flex flex-col p-4">
                     <SheetClose asChild>
                     <Link href="/" className="mb-4 self-start font-headline text-2xl font-bold text-primary">
