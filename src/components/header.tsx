@@ -100,12 +100,11 @@ export default function Header() {
   const { cart, isMounted } = useCart();
 
   const isLinkActive = (href: string) => {
-    if (!isMounted) return false;
     if (href === '/') return pathname === '/';
+    // Remove hash-based checking to prevent hydration errors,
+    // as window.location.hash is not available on the server.
     if (href.startsWith('/#')) {
-        if (typeof window === 'undefined') return false;
-        const hash = window.location.hash;
-        return pathname === '/' && hash === href.substring(1);
+        return false; // Or implement a more sophisticated check if needed.
     }
     return pathname.startsWith(href);
   };
@@ -255,3 +254,5 @@ export default function Header() {
     </header>
   );
 }
+
+    
