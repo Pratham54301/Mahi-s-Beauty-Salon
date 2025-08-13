@@ -6,11 +6,19 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogC
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { UserProfile } from './profile-card';
 import { getAvatarColor } from '@/lib/utils';
 import { Camera } from 'lucide-react';
+
+export interface UserProfile {
+    fullName: string;
+    email: string;
+    phone: string;
+    dob: string;
+    address: string;
+    avatarUrl: string;
+    membership: string;
+}
 
 interface EditProfileDialogProps {
     isOpen: boolean;
@@ -24,7 +32,7 @@ export default function EditProfileDialog({ isOpen, onClose, user, onSave }: Edi
     const [previewImage, setPreviewImage] = useState<string | null>(user.avatarUrl);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setEditedUser(prev => ({ ...prev, [name]: value }));
     };
@@ -92,8 +100,12 @@ export default function EditProfileDialog({ isOpen, onClose, user, onSave }: Edi
                         <Input id="phone" name="phone" value={editedUser.phone} onChange={handleChange} />
                     </div>
                     <div className="grid gap-2">
+                        <Label htmlFor="dob">Date of Birth</Label>
+                        <Input id="dob" name="dob" type="date" value={editedUser.dob} onChange={handleChange} />
+                    </div>
+                    <div className="grid gap-2">
                         <Label htmlFor="address">Address</Label>
-                        <Textarea id="address" name="address" value={editedUser.address} onChange={handleChange} />
+                        <Input id="address" name="address" value={editedUser.address} onChange={handleChange} />
                     </div>
                 </div>
                 <DialogFooter>
