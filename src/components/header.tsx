@@ -98,15 +98,20 @@ const MegaMenu = ({ menu }: { menu: typeof servicesMenu | typeof shopMenu }) => 
 export default function Header() {
   const pathname = usePathname();
   const { cart, isMounted } = useCart();
-  // Mock authentication state
-  const [isAuthenticated, setIsAuthenticated] = React.useState(true);
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+
+  React.useEffect(() => {
+    // Mock authentication check, replace with your actual auth logic
+    // This now only runs on the client, avoiding the hydration mismatch
+    setIsAuthenticated(true); 
+  }, []);
 
   const isLinkActive = (href: string) => {
     if (href === '/') return pathname === '/';
-    // Remove hash-based checking to prevent hydration errors,
-    // as window.location.hash is not available on the server.
     if (href.startsWith('/#')) {
         const baseHref = href.split('#')[0];
+        // For root paths like '/#services', pathname will be '/'
+        if (baseHref === '') return pathname === '/';
         return pathname === baseHref;
     }
     return pathname.startsWith(href);
@@ -123,7 +128,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-7xl items-center justify-between w-full">
+      <div className="container flex h-14 max-w-7xl items-center">
         <div className="flex items-center">
             <Link href="/" className="flex items-center font-headline text-2xl font-bold text-primary">
               Mahi's
