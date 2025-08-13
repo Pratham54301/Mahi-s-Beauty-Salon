@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { useCart } from "@/context/cart-context";
 import { useToast } from "@/hooks/use-toast";
+import { useEffect, useState } from "react";
 
 const featuredProducts = [
   { id: 1, name: "Intense Hydration Shampoo", price: 1200, category: "Hair", image: "https://placehold.co/400x400.png", aiHint: "shampoo bottle" },
@@ -17,6 +18,11 @@ const featuredProducts = [
 export default function ShopSection() {
   const { addToCart } = useCart();
   const { toast } = useToast();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleAddToCart = (product: any) => {
     addToCart(product);
@@ -56,7 +62,7 @@ export default function ShopSection() {
                 </h3>
                 <p className="font-body text-primary font-bold text-xl my-2">INR {product.price.toLocaleString()}</p>
                 <div className="mt-auto">
-                    <Button className="w-full" onClick={() => handleAddToCart(product)}>Add to Cart</Button>
+                    {isMounted && <Button className="w-full" onClick={() => handleAddToCart(product)}>Add to Cart</Button>}
                 </div>
               </div>
             </Card>
