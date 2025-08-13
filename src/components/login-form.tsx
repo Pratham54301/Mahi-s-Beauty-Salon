@@ -1,3 +1,4 @@
+
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,6 +17,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
+import { useAuth } from "@/context/auth-context";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address." }),
@@ -23,6 +26,9 @@ const formSchema = z.object({
 });
 
 export default function LoginForm() {
+  const { login } = useAuth();
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -35,6 +41,8 @@ export default function LoginForm() {
     console.log(values);
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
+    login();
+    router.push('/profile');
   }
 
   return (

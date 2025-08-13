@@ -11,6 +11,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { cn } from "@/lib/utils";
 import { useCart } from "@/context/cart-context";
 import { Badge } from "./ui/badge";
+import { useAuth } from "@/context/auth-context";
 
 const servicesMenu = {
   title: "SERVICES",
@@ -98,13 +99,11 @@ const MegaMenu = ({ menu }: { menu: typeof servicesMenu | typeof shopMenu }) => 
 export default function Header() {
   const pathname = usePathname();
   const { cart } = useCart();
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const { isAuthenticated } = useAuth();
   const [isMounted, setIsMounted] = React.useState(false);
 
   React.useEffect(() => {
     setIsMounted(true);
-    // Mock authentication check, replace with your actual auth logic
-    setIsAuthenticated(true); 
   }, []);
 
   const isLinkActive = (href: string) => {

@@ -6,8 +6,19 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
+import { useRouter } from 'next/navigation';
+import { useAuth } from "@/context/auth-context";
+
 
 export default function SettingsCard() {
+    const router = useRouter();
+    const { logout } = useAuth();
+
+    const handleLogout = () => {
+        logout();
+        router.push('/login');
+    };
+
     return (
         <Card className="shadow-sm">
             <CardHeader>
@@ -41,7 +52,7 @@ export default function SettingsCard() {
 
                 <Separator />
 
-                <Button variant="destructive" className="w-full">Logout</Button>
+                <Button variant="destructive" className="w-full" onClick={handleLogout}>Logout</Button>
             </CardContent>
         </Card>
     );
