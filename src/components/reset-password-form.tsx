@@ -1,3 +1,4 @@
+
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -54,7 +55,13 @@ export default function ResetPasswordForm() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { step: 'validate' },
+    defaultValues: {
+      step: 'validate',
+      email: '',
+      tempPassword: '',
+      newPassword: '',
+      confirmPassword: '',
+    },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
