@@ -99,13 +99,8 @@ const MegaMenu = ({ menu }: { menu: typeof servicesMenu | typeof shopMenu }) => 
 
 export default function Header() {
   const pathname = usePathname();
-  const { cart } = useCart();
-  const { isAuthenticated } = useAuth();
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-      setIsMounted(true);
-  }, []);
+  const { cart, isMounted: isCartMounted } = useCart();
+  const { isAuthenticated, isMounted: isAuthMounted } = useAuth();
   
   const isLinkActive = (href: string) => {
     if (href === '/') {
@@ -117,7 +112,7 @@ export default function Header() {
 
   const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
   
-  const updatedIconNavItems = isMounted && isAuthenticated 
+  const updatedIconNavItems = isAuthMounted && isAuthenticated 
     ? iconNavItems.map(item => item.href === '/login' ? { href: '/profile', icon: <User className="h-5 w-5" />, label: 'Profile' } : item)
     : iconNavItems;
 
@@ -158,7 +153,7 @@ export default function Header() {
                 ))}
                   <Link href="/cart" aria-label="Cart" className={cn("relative text-gray-700 hover:text-primary", isLinkActive('/cart') && 'text-primary')}>
                       <ShoppingCart className={cn("h-5 w-5", isLinkActive('/cart') && 'text-primary')} />
-                      {isMounted && cartItemCount > 0 && (
+                      {isCartMounted && cartItemCount > 0 && (
                           <Badge variant="destructive" className="absolute -top-2 -right-3 h-5 w-5 justify-center rounded-full p-0">{cartItemCount}</Badge>
                       )}
                   </Link>
@@ -200,7 +195,7 @@ export default function Header() {
                                 <Link href="/cart" className={cn("relative flex flex-col items-center gap-1 text-xs font-medium text-gray-700 hover:text-primary", isLinkActive('/cart') && 'text-primary')}>
                                     <ShoppingCart className="h-5 w-5" />
                                     Cart
-                                    {isMounted && cartItemCount > 0 && (
+                                    {isCartMounted && cartItemCount > 0 && (
                                         <Badge variant="destructive" className="absolute -top-2 -right-3 h-5 w-5 justify-center rounded-full p-0">{cartItemCount}</Badge>
                                     )}
                                 </Link>
@@ -286,5 +281,3 @@ export default function Header() {
     </header>
   );
 }
-
-    

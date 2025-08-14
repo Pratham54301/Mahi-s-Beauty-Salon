@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -6,7 +7,6 @@ import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { useCart } from "@/context/cart-context";
 import { useToast } from "@/hooks/use-toast";
-import { useEffect, useState } from "react";
 
 const featuredProducts = [
   { id: 1, name: "Intense Hydration Shampoo", price: 1200, category: "Hair", image: "https://placehold.co/400x400.png", aiHint: "shampoo bottle" },
@@ -16,13 +16,8 @@ const featuredProducts = [
 ];
 
 export default function ShopSection() {
-  const { addToCart } = useCart();
+  const { addToCart, isMounted } = useCart();
   const { toast } = useToast();
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   const handleAddToCart = (product: any) => {
     addToCart(product);

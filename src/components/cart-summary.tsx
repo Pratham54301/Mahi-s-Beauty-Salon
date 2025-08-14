@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -6,6 +7,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { useCart } from "@/context/cart-context";
+import { Loader2 } from "lucide-react";
 
 const EmptyCart = () => (
     <div className="text-center py-20">
@@ -24,8 +26,9 @@ export default function CartSummary() {
         return (
              <section className="py-16 md:py-24">
                 <div className="container max-w-7xl">
-                    <div className="text-center py-20">
-                        <h2 className="text-2xl font-bold mb-4">Loading Cart...</h2>
+                    <div className="text-center py-20 flex flex-col items-center justify-center">
+                        <Loader2 className="h-8 w-8 animate-spin text-primary mb-4" />
+                        <h2 className="text-2xl font-bold">Loading Cart...</h2>
                     </div>
                 </div>
             </section>

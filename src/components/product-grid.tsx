@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -55,7 +56,7 @@ const FilterSidebar = () => (
 
 export default function ProductGrid() {
   const [sortOrder, setSortOrder] = useState("newest");
-  const { addToCart } = useCart();
+  const { addToCart, isMounted } = useCart();
   const { toast } = useToast();
 
   const handleAddToCart = (product: any) => {
@@ -138,7 +139,7 @@ export default function ProductGrid() {
                     <h3 className="font-headline text-lg font-semibold truncate"><Link href={`/shop/${product.id}`} className="hover:text-primary">{product.name}</Link></h3>
                     <p className="font-body text-primary font-bold text-xl my-2">INR {product.price.toLocaleString()}</p>
                     <div className="mt-auto">
-                        <Button className="w-full" onClick={() => handleAddToCart(product)}>Add to Cart</Button>
+                        {isMounted && <Button className="w-full" onClick={() => handleAddToCart(product)}>Add to Cart</Button>}
                     </div>
                   </div>
                 </Card>

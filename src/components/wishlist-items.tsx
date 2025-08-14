@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
-import { Heart } from "lucide-react";
+import { Heart, Loader2 } from "lucide-react";
 import { useCart } from "@/context/cart-context";
 import { useToast } from "@/hooks/use-toast";
 import { useState, useEffect } from "react";
@@ -57,8 +57,9 @@ export default function WishlistItems() {
     <section className="py-16 md:py-24 bg-background">
       <div className="container max-w-7xl">
         {!isMounted ? (
-            <div className="text-center py-20">
-                <h2 className="text-2xl font-bold mb-4">Loading Wishlist...</h2>
+            <div className="text-center py-20 flex flex-col items-center justify-center">
+                <Loader2 className="h-8 w-8 animate-spin text-primary mb-4" />
+                <h2 className="text-2xl font-bold">Loading Wishlist...</h2>
             </div>
         ) : wishlistItems.length === 0 ? (
             <EmptyWishlist />
