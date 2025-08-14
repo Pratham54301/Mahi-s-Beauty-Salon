@@ -1,29 +1,33 @@
 
-import { Card, CardContent } from "@/components/ui/card";
-import { Scissors, Brush, Sparkles, Hand } from "lucide-react";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Scissors, Sparkles, Hand, Gem, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./ui/button";
 
-const services = [
+const serviceCategories = [
   {
     icon: <Scissors className="h-10 w-10 text-primary" />,
-    title: "Hair Styling",
-    description: "From classic cuts to the latest trends, our stylists create looks that enhance your natural beauty.",
-  },
-  {
-    icon: <Brush className="h-10 w-10 text-primary" />,
-    title: "Professional Makeup",
-    description: "Perfect for special occasions or just a day you want to feel extra glamorous. We use top-quality products.",
+    title: "Hair",
+    services: ["Cut & Style", "Colour", "Texture", "Hair Spa", "Treatments"],
+    href: "/services"
   },
   {
     icon: <Sparkles className="h-10 w-10 text-primary" />,
-    title: "Skincare Treatments",
-    description: "Rejuvenate your skin with our custom facials, peels, and treatments designed for your skin type.",
+    title: "Skin",
+    services: ["Facials", "Clean-Ups", "Body Care", "Manicure", "Pedicure"],
+    href: "/services"
+  },
+  {
+    icon: <Gem className="h-10 w-10 text-primary" />,
+    title: "Bridal",
+    services: ["Bridal Makeup", "Groom Makeup", "Pre-Bridal", "Hair Styling"],
+    href: "/bridal"
   },
   {
     icon: <Hand className="h-10 w-10 text-primary" />,
-    title: "Nail Art & Manicures",
-    description: "Indulge in our luxurious manicures, pedicures, and stunning nail art by our talented technicians.",
+    title: "Hands & Feet",
+    services: ["Manicure", "Pedicure", "Nail Art", "Gel Polish", "Extensions"],
+    href: "/services"
   },
 ];
 
@@ -32,23 +36,36 @@ export default function HomeServicesSection() {
     <section id="services" className="py-16 md:py-24 bg-background">
       <div className="container max-w-7xl">
         <div className="text-center mb-12">
-          <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Featured Services</h2>
+          <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Services</h2>
           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-            We offer a wide range of services to cater to your beauty needs, delivered with care and professionalism.
+            Indulge in a wide range of services, from hair and skin to bridal and beyond.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {services.map((service) => (
-            <Card key={service.title} className="text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-              <CardContent className="p-8">
-                <div className="mb-4 inline-block p-4 bg-primary/10 rounded-full">{service.icon}</div>
-                <h3 className="font-headline text-2xl font-bold">{service.title}</h3>
-                <p className="text-muted-foreground mt-2">{service.description}</p>
+          {serviceCategories.map((category) => (
+            <Card key={category.title} className="group text-center shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col border-transparent hover:border-primary">
+              <CardHeader className="items-center">
+                <div className="mb-2 p-4 bg-primary/10 rounded-full">{category.icon}</div>
+                <CardTitle className="font-headline text-2xl font-bold">{category.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <ul className="space-y-2 text-muted-foreground">
+                    {category.services.map((service) => (
+                        <li key={service}>{service}</li>
+                    ))}
+                </ul>
               </CardContent>
+              <CardFooter className="justify-center pt-4">
+                 <Button asChild variant="link" className="text-primary font-semibold group-hover:underline">
+                    <Link href={category.href}>
+                        Know More <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                </Button>
+              </CardFooter>
             </Card>
           ))}
         </div>
-        <div className="text-center mt-12">
+        <div className="text-center mt-16">
             <Button asChild size="lg">
                 <Link href="/services">View All Services</Link>
             </Button>
