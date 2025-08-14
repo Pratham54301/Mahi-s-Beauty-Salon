@@ -1,3 +1,4 @@
+
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -64,8 +65,32 @@ export default function TrackOrderForm() {
                         onSubmit={form.handleSubmit(onSubmit)}
                         className="space-y-6"
                     >
-                        <FormField control={form.control} name="orderNumber" render={({ field }) => ( <FormItem> <FormLabel>Order Number</FormLabel> <FormControl> <Input placeholder="e.g. 12345" {...field} /> </FormControl> <FormMessage /> </FormItem> )} />
-                        <FormField control={form.control} name="emailOrPhone" render={({ field }) => ( <FormItem> <FormLabel>Email or Phone Number</FormLabel> <FormControl> <Input placeholder="you@example.com or 10-digit number" {...field} /> </FormControl> <FormMessage /> </FormItem> )} />
+                        <FormField
+                          control={form.control}
+                          name="orderNumber"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Order Number</FormLabel>
+                              <FormControl>
+                                <Input placeholder="e.g. 12345" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="emailOrPhone"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Email or Phone Number</FormLabel>
+                              <FormControl>
+                                <Input placeholder="you@example.com or 10-digit number" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
                         
                         <Button type="submit" className="w-full" disabled={trackingResult.status === 'loading'}>
                         {trackingResult.status === 'loading' ? (
