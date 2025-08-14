@@ -1,5 +1,8 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import { Card, CardContent } from "@/components/ui/card";
 import { Scissors, Brush, Sparkles, Hand } from "lucide-react";
+import Link from "next/link";
+import { Button } from "./ui/button";
 
 const services = [
   {
@@ -24,7 +27,7 @@ const services = [
   },
 ];
 
-export default function ServicesSection() {
+export default function HomeServicesSection() {
   return (
     <section id="services" className="py-16 md:py-24 bg-background">
       <div className="container max-w-7xl">
@@ -37,15 +40,18 @@ export default function ServicesSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service) => (
             <Card key={service.title} className="text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-              <CardHeader className="items-center">
-                <div className="mb-4 p-4 bg-primary/10 rounded-full">{service.icon}</div>
-                <CardTitle className="font-headline text-2xl">{service.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">{service.description}</p>
+              <CardContent className="p-8">
+                <div className="mb-4 inline-block p-4 bg-primary/10 rounded-full">{service.icon}</div>
+                <h3 className="font-headline text-2xl font-bold">{service.title}</h3>
+                <p className="text-muted-foreground mt-2">{service.description}</p>
               </CardContent>
             </Card>
           ))}
+        </div>
+        <div className="text-center mt-12">
+            <Button asChild size="lg">
+                <Link href="/services">View All Services</Link>
+            </Button>
         </div>
       </div>
     </section>

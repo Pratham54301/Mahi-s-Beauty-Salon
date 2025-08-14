@@ -1,6 +1,6 @@
 import Header from "@/components/header";
 import HeroSection from "@/components/hero-section";
-import ServicesSection from "@/components/services-section";
+import HomeServicesSection from "@/components/home-services-section";
 import ShopSection from "@/components/shop-section";
 import TestimonialsSection from "@/components/testimonials-section";
 import BookingSection from "@/components/booking-section";
@@ -14,7 +14,7 @@ export default function Home() {
         <Header />
         <main className="flex-1">
           <HeroSection />
-          <ServicesSection />
+          <HomeServicesSection />
           <ShopSection />
           <TestimonialsSection />
           <BookingSection />

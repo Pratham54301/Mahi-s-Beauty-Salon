@@ -1,7 +1,7 @@
 
 "use client";
 
-import * as React from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { Menu, ChevronDown, Search, User, ShoppingCart, Heart, Truck } from "lucide-react";
@@ -16,7 +16,7 @@ import { useAuth } from "@/context/auth-context";
 
 const servicesMenu = {
   title: "SERVICES",
-  href: "/#services",
+  href: "/services",
   columns: [
     {
       title: "Skin",
@@ -99,11 +99,14 @@ const MegaMenu = ({ menu }: { menu: typeof servicesMenu | typeof shopMenu }) => 
 
 export default function Header() {
   const pathname = usePathname();
-  const { cart, isMounted: isCartMounted } = useCart();
-  const { isAuthenticated, isMounted: isAuthMounted } = useAuth();
-  
-  const isMounted = isCartMounted && isAuthMounted;
+  const { cart } = useCart();
+  const { isAuthenticated } = useAuth();
+  const [isMounted, setIsMounted] = useState(false);
 
+  useEffect(() => {
+      setIsMounted(true);
+  }, []);
+  
   const isLinkActive = (href: string) => {
     if (href === '/') {
         return pathname === '/';
@@ -114,12 +117,9 @@ export default function Header() {
 
   const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
   
-  const updatedIconNavItems = isMounted ? iconNavItems.map(item => {
-    if (isAuthenticated && item.href === '/login') {
-        return { href: '/profile', icon: <User className="h-5 w-5" />, label: 'Profile' };
-    }
-    return item;
-  }) : iconNavItems;
+  const updatedIconNavItems = isMounted && isAuthenticated 
+    ? iconNavItems.map(item => item.href === '/login' ? { href: '/profile', icon: <User className="h-5 w-5" />, label: 'Profile' } : item)
+    : iconNavItems;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -236,7 +236,7 @@ export default function Header() {
                             </SheetClose>
                             <ChevronDown className="h-5 w-5" />
                             </CollapsibleTrigger>
-                            <CollapsibleContent className="pl-4 pt-2 space-y-2">
+                             <CollapsibleContent className="pl-4 pt-2 space-y-2">
                             {shopMenu.columns.map(col => (
                                 <Collapsible key={col.title}>
                                 <CollapsibleTrigger className="flex justify-between items-center w-full font-semibold py-2">
@@ -286,3 +286,5 @@ export default function Header() {
     </header>
   );
 }
+
+    
