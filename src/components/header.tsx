@@ -4,7 +4,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
-import { Menu, ChevronDown, Search, User, ShoppingCart, Heart } from "lucide-react";
+import { Menu, ChevronDown, Search, User, ShoppingCart, Heart, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -66,7 +66,8 @@ const otherMenus = [
 ];
 
 const iconNavItems = [
-    { href: "/track-order", icon: <Search className="h-5 w-5" />, label: "Track Order" },
+    { href: "/track-order", icon: <Search className="h-5 w-5" />, label: "Search" },
+    { href: "/track-order", icon: <Truck className="h-5 w-5" />, label: "Track Order" },
     { href: "/login", icon: <User className="h-5 w-5" />, label: "Login" },
     { href: "/wishlist", icon: <Heart className="h-5 w-5" />, label: "Wishlist" },
 ];
@@ -122,147 +123,151 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-7xl items-center justify-between">
-        <div className="flex items-center">
-            <Link href="/" className="flex items-center font-headline text-2xl font-bold text-primary">
+      <div className="container max-w-7xl">
+        {/* Top Layer */}
+        <div className="flex h-16 items-center justify-between">
+            <Link href="/" className="flex items-center font-headline text-3xl font-bold text-primary">
               Mahi's
             </Link>
-        </div>
-        <nav className="hidden lg:flex flex-1 items-center justify-center space-x-6 text-sm font-medium">
-          <div className="group relative">
-             <Link href={servicesMenu.href} className={cn("flex items-center gap-1 text-gray-800 hover:text-primary", isLinkActive(servicesMenu.href) && 'text-primary')}>
-              {servicesMenu.title} <ChevronDown className="h-4 w-4" />
-            </Link>
-            <MegaMenu menu={servicesMenu} />
-          </div>
-          <div className="group relative">
-            <Link href={shopMenu.href} className={cn("flex items-center gap-1 text-gray-800 hover:text-primary", isLinkActive(shopMenu.href) && 'text-primary')}>
-              {shopMenu.title} <ChevronDown className="h-4 w-4" />
-            </Link>
-            <MegaMenu menu={shopMenu} />
-          </div>
-          {otherMenus.map((item) => (
-            <div key={item.title} className="group relative">
-              <Link href={item.href} className={cn("text-gray-800 hover:text-primary", isLinkActive(item.href) && 'text-primary')}>
-                  {item.title}
-              </Link>
-            </div>
-          ))}
-        </nav>
-        <div className="flex items-center justify-end gap-2">
-            <div className="hidden lg:flex items-center gap-4">
-              {updatedIconNavItems.map((item) => (
-                  <Link key={item.href} href={item.href} aria-label={item.label} className={cn("text-gray-700 hover:text-primary", isLinkActive(item.href) && 'text-primary')}>
-                      {item.icon}
-                  </Link>
-              ))}
-                <Link href="/cart" aria-label="Cart" className={cn("relative text-gray-700 hover:text-primary", isLinkActive('/cart') && 'text-primary')}>
-                    <ShoppingCart className={cn("h-5 w-5", isLinkActive('/cart') && 'text-primary')} />
-                    {isMounted && cartItemCount > 0 && (
-                        <Badge variant="destructive" className="absolute -top-2 -right-3 h-5 w-5 justify-center rounded-full p-0">{cartItemCount}</Badge>
-                    )}
-                </Link>
-            </div>
-
-            <Button asChild>
-                <Link href="/#booking">Book Appointment</Link>
-            </Button>
-            <div className="lg:hidden">
-            <Sheet>
-                <SheetTrigger asChild>
-                <Button variant="outline" size="icon">
-                    <Menu className="h-6 w-6" />
-                    <span className="sr-only">Open navigation menu</span>
-                </Button>
-                </SheetTrigger>
-                <SheetContent side="right" className="w-full sm:w-[400px] overflow-y-auto p-0">
-                  <SheetHeader className="p-4 border-b">
-                    <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
-                    <SheetClose asChild>
-                    <Link href="/" className="self-start font-headline text-2xl font-bold text-primary">
-                        Mahi's
+            <div className="flex items-center justify-end gap-4">
+              <div className="hidden lg:flex items-center gap-4">
+                {updatedIconNavItems.map((item) => (
+                    <Link key={item.label} href={item.href} aria-label={item.label} className={cn("text-gray-700 hover:text-primary", isLinkActive(item.href) && 'text-primary')}>
+                        {item.icon}
                     </Link>
-                    </SheetClose>
-                  </SheetHeader>
-                <div className="flex flex-col p-4">
-                    
-                    <div className="flex justify-between border-b pb-4 my-4">
-                        {updatedIconNavItems.map((item) => (
-                            <SheetClose asChild key={item.href}>
-                                <Link href={item.href} className={cn("flex flex-col items-center gap-1 text-xs font-medium text-gray-700 hover:text-primary", isLinkActive(item.href) && 'text-primary')}>
-                                    {item.icon}
-                                    {item.label}
+                ))}
+                  <Link href="/cart" aria-label="Cart" className={cn("relative text-gray-700 hover:text-primary", isLinkActive('/cart') && 'text-primary')}>
+                      <ShoppingCart className={cn("h-5 w-5", isLinkActive('/cart') && 'text-primary')} />
+                      {isMounted && cartItemCount > 0 && (
+                          <Badge variant="destructive" className="absolute -top-2 -right-3 h-5 w-5 justify-center rounded-full p-0">{cartItemCount}</Badge>
+                      )}
+                  </Link>
+              </div>
+
+              <Button asChild>
+                  <Link href="/#booking">Book Appointment</Link>
+              </Button>
+
+              <div className="lg:hidden">
+                <Sheet>
+                    <SheetTrigger asChild>
+                    <Button variant="outline" size="icon">
+                        <Menu className="h-6 w-6" />
+                        <span className="sr-only">Open navigation menu</span>
+                    </Button>
+                    </SheetTrigger>
+                    <SheetContent side="right" className="w-full sm:w-[400px] overflow-y-auto p-0">
+                      <SheetHeader className="p-4 border-b">
+                        <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
+                        <SheetClose asChild>
+                        <Link href="/" className="self-start font-headline text-2xl font-bold text-primary">
+                            Mahi's
+                        </Link>
+                        </SheetClose>
+                      </SheetHeader>
+                    <div className="flex flex-col p-4">
+                        
+                        <div className="flex justify-between border-b pb-4 my-4">
+                            {updatedIconNavItems.map((item) => (
+                                <SheetClose asChild key={item.label}>
+                                    <Link href={item.href} className={cn("flex flex-col items-center gap-1 text-xs font-medium text-gray-700 hover:text-primary", isLinkActive(item.href) && 'text-primary')}>
+                                        {item.icon}
+                                        {item.label}
+                                    </Link>
+                                </SheetClose>
+                            ))}
+                            <SheetClose asChild>
+                                <Link href="/cart" className={cn("relative flex flex-col items-center gap-1 text-xs font-medium text-gray-700 hover:text-primary", isLinkActive('/cart') && 'text-primary')}>
+                                    <ShoppingCart className="h-5 w-5" />
+                                    Cart
+                                    {isMounted && cartItemCount > 0 && (
+                                        <Badge variant="destructive" className="absolute -top-2 -right-3 h-5 w-5 justify-center rounded-full p-0">{cartItemCount}</Badge>
+                                    )}
                                 </Link>
                             </SheetClose>
-                        ))}
-                        <SheetClose asChild>
-                            <Link href="/cart" className={cn("relative flex flex-col items-center gap-1 text-xs font-medium text-gray-700 hover:text-primary", isLinkActive('/cart') && 'text-primary')}>
-                                <ShoppingCart className="h-5 w-5" />
-                                Cart
-                                {isMounted && cartItemCount > 0 && (
-                                    <Badge variant="destructive" className="absolute -top-2 -right-3 h-5 w-5 justify-center rounded-full p-0">{cartItemCount}</Badge>
-                                )}
-                            </Link>
-                        </SheetClose>
-                    </div>
+                        </div>
 
-                    <div className="flex flex-col space-y-2">
-                    <Collapsible>
-                        <CollapsibleTrigger className="flex justify-between items-center w-full py-2 text-lg font-medium">
-                        <SheetClose asChild>
-                            <Link href={servicesMenu.href}>{servicesMenu.title}</Link>
-                        </SheetClose>
-                        <ChevronDown className="h-5 w-5" />
-                        </CollapsibleTrigger>
-                        <CollapsibleContent className="pl-4 pt-2 space-y-2">
-                        {servicesMenu.columns.map(col => (
-                            <Collapsible key={col.title}>
-                            <CollapsibleTrigger className="flex justify-between items-center w-full font-semibold py-2">
-                                {col.title} <ChevronDown className="h-4 w-4" />
+                        <div className="flex flex-col space-y-2">
+                        <Collapsible>
+                            <CollapsibleTrigger className="flex justify-between items-center w-full py-2 text-lg font-medium">
+                            <SheetClose asChild>
+                                <Link href={servicesMenu.href}>{servicesMenu.title}</Link>
+                            </SheetClose>
+                            <ChevronDown className="h-5 w-5" />
                             </CollapsibleTrigger>
-                            <CollapsibleContent className="pl-4 py-2 space-y-2 font-normal">
-                                {col.items.map(item => <SheetClose asChild key={item}><Link href={servicesMenu.href} className="block py-1">{item}</Link></SheetClose>)}
+                            <CollapsibleContent className="pl-4 pt-2 space-y-2">
+                            {servicesMenu.columns.map(col => (
+                                <Collapsible key={col.title}>
+                                <CollapsibleTrigger className="flex justify-between items-center w-full font-semibold py-2">
+                                    {col.title} <ChevronDown className="h-4 w-4" />
+                                </CollapsibleTrigger>
+                                <CollapsibleContent className="pl-4 py-2 space-y-2 font-normal">
+                                    {col.items.map(item => <SheetClose asChild key={item}><Link href={servicesMenu.href} className="block py-1">{item}</Link></SheetClose>)}
+                                </CollapsibleContent>
+                                </Collapsible>
+                            ))}
                             </CollapsibleContent>
-                            </Collapsible>
-                        ))}
-                        </CollapsibleContent>
-                    </Collapsible>
-                    
-                    <Collapsible>
-                        <CollapsibleTrigger className="flex justify-between items-center w-full py-2 text-lg font-medium">
-                        <SheetClose asChild>
-                            <Link href={shopMenu.href}>{shopMenu.title}</Link>
-                        </SheetClose>
-                        <ChevronDown className="h-5 w-5" />
-                        </CollapsibleTrigger>
-                        <CollapsibleContent className="pl-4 pt-2 space-y-2">
-                        {shopMenu.columns.map(col => (
-                            <Collapsible key={col.title}>
-                            <CollapsibleTrigger className="flex justify-between items-center w-full font-semibold py-2">
-                                {col.title} <ChevronDown className="h-4 w-4" />
+                        </Collapsible>
+                        
+                        <Collapsible>
+                            <CollapsibleTrigger className="flex justify-between items-center w-full py-2 text-lg font-medium">
+                            <SheetClose asChild>
+                                <Link href={shopMenu.href}>{shopMenu.title}</Link>
+                            </SheetClose>
+                            <ChevronDown className="h-5 w-5" />
                             </CollapsibleTrigger>
-                            <CollapsibleContent className="pl-4 py-2 space-y-2 font-normal">
-                                {col.items.map(item => <SheetClose asChild key={item}><Link href={shopMenu.href} className="block py-1">{item}</Link></SheetClose>)}
+                            <CollapsibleContent className="pl-4 pt-2 space-y-2">
+                            {shopMenu.columns.map(col => (
+                                <Collapsible key={col.title}>
+                                <CollapsibleTrigger className="flex justify-between items-center w-full font-semibold py-2">
+                                    {col.title} <ChevronDown className="h-4 w-4" />
+                                </CollapsibleTrigger>
+                                <CollapsibleContent className="pl-4 py-2 space-y-2 font-normal">
+                                    {col.items.map(item => <SheetClose asChild key={item}><Link href={shopMenu.href} className="block py-1">{item}</Link></SheetClose>)}
+                                </CollapsibleContent>
+                                </Collapsible>
+                            ))}
                             </CollapsibleContent>
-                            </Collapsible>
-                        ))}
-                        </CollapsibleContent>
-                    </Collapsible>
+                        </Collapsible>
 
-                    {otherMenus.map((item) =>(
-                        <SheetClose asChild key={item.title}>
-                            <Link href={item.href} className={cn("py-2 text-lg font-medium", isLinkActive(item.href) ? "text-primary" : "")}>
-                            {item.title}
-                            </Link>
-                        </SheetClose>
-                        )
-                    )}
+                        {otherMenus.map((item) =>(
+                            <SheetClose asChild key={item.title}>
+                                <Link href={item.href} className={cn("py-2 text-lg font-medium", isLinkActive(item.href) ? "text-primary" : "")}>
+                                {item.title}
+                                </Link>
+                            </SheetClose>
+                            )
+                        )}
+                        </div>
                     </div>
-                </div>
-                </SheetContent>
-            </Sheet>
+                    </SheetContent>
+                </Sheet>
+              </div>
             </div>
         </div>
+
+        {/* Bottom Layer */}
+        <nav className="hidden lg:flex h-14 items-center justify-center space-x-8 text-sm font-medium border-t">
+            <div className="group relative">
+                <Link href={servicesMenu.href} className={cn("flex items-center gap-1 text-gray-800 hover:text-primary", isLinkActive(servicesMenu.href) && 'text-primary')}>
+                {servicesMenu.title} <ChevronDown className="h-4 w-4" />
+                </Link>
+                <MegaMenu menu={servicesMenu} />
+            </div>
+            <div className="group relative">
+                <Link href={shopMenu.href} className={cn("flex items-center gap-1 text-gray-800 hover:text-primary", isLinkActive(shopMenu.href) && 'text-primary')}>
+                {shopMenu.title} <ChevronDown className="h-4 w-4" />
+                </Link>
+                <MegaMenu menu={shopMenu} />
+            </div>
+            {otherMenus.map((item) => (
+                <div key={item.title} className="group relative">
+                <Link href={item.href} className={cn("text-gray-800 hover:text-primary", isLinkActive(item.href) && 'text-primary')}>
+                    {item.title}
+                </Link>
+                </div>
+            ))}
+        </nav>
       </div>
     </header>
   );
