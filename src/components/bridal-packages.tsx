@@ -38,7 +38,7 @@ export default function BridalPackages() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {packages.map((pkg, index) => (
-                <Card key={index} className="group overflow-hidden shadow-none border-0 rounded-none text-center">
+                <Card key={index} className="group overflow-hidden rounded-lg text-center transition-all duration-300 border hover:border-primary hover:shadow-lg">
                     <div className="overflow-hidden">
                         <Image src={pkg.image} alt={pkg.title} data-ai-hint={pkg.aiHint} width={600} height={400} className="w-full h-auto object-cover aspect-[4/3] transition-transform duration-300 group-hover:scale-110"/>
                     </div>

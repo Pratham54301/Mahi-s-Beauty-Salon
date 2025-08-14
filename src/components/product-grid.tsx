@@ -118,7 +118,7 @@ export default function ProductGrid() {
 
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
               {sortedProducts.map((product) => (
-                <Card key={product.id} className="group relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
+                <Card key={product.id} className="group relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col border hover:border-primary">
                   <Link href={`/shop/${product.id}`} className="block">
                     <CardContent className="p-0">
                         <Image

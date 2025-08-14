@@ -11,7 +11,7 @@ interface ServiceCategoryCardProps {
 
 export default function ServiceCategoryCard({ service }: ServiceCategoryCardProps) {
     return (
-        <Card className="group overflow-hidden shadow-lg hover:shadow-primary/20 transition-all duration-300 bg-background">
+        <Card className="group overflow-hidden shadow-lg hover:shadow-primary/20 transition-all duration-300 bg-background border hover:border-primary">
             <div className="overflow-hidden">
                  <Image 
                     src={service.image} 

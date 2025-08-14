@@ -43,7 +43,7 @@ export default function HomeServicesSection() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {serviceCategories.map((category) => (
-            <Card key={category.title} className="group text-center shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col border-transparent hover:border-primary">
+            <Card key={category.title} className="group text-center shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col border hover:border-primary">
               <CardHeader className="items-center">
                 <div className="mb-2 p-4 bg-primary/10 rounded-full">{category.icon}</div>
                 <CardTitle className="font-headline text-2xl font-bold">{category.title}</CardTitle>

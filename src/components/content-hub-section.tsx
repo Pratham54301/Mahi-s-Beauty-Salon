@@ -40,7 +40,7 @@ export default function ContentHubSection() {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                     {hubContent.map((item, index) => (
-                        <Card key={index} className="group overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                        <Card key={index} className="group overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:border-primary border">
                             <Link href={item.link} className="block">
                                 <div className="overflow-hidden">
                                     <Image

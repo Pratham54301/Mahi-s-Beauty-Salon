@@ -56,7 +56,7 @@ export default function OfferGrid() {
       <div className="container max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {offers.map((offer, index) => (
-                <Card key={index} className="group overflow-hidden shadow-none border-0 rounded-none text-center">
+                <Card key={index} className="group overflow-hidden rounded-lg text-center transition-all duration-300 border hover:border-primary hover:shadow-lg">
                     <div className="overflow-hidden">
                         <Image src={offer.image} alt={offer.title} data-ai-hint={offer.aiHint} width={600} height={400} className="w-full h-auto object-cover aspect-[4/3] transition-transform duration-300 group-hover:scale-110"/>
                     </div>
