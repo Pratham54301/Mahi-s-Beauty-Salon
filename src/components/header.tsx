@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { Menu, ChevronDown, Search, User, ShoppingCart, Heart, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { cn } from "@/lib/utils";
@@ -66,7 +67,6 @@ const otherMenus = [
 ];
 
 const iconNavItems = [
-    { href: "/track-order", icon: <Search className="h-5 w-5" />, label: "Search" },
     { href: "/track-order", icon: <Truck className="h-5 w-5" />, label: "Track Order" },
     { href: "/login", icon: <User className="h-5 w-5" />, label: "Login" },
     { href: "/wishlist", icon: <Heart className="h-5 w-5" />, label: "Wishlist" },
@@ -125,11 +125,31 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container max-w-7xl">
         {/* Top Layer */}
-        <div className="flex h-16 items-center justify-between">
-            <Link href="/" className="flex items-center font-headline text-3xl font-bold text-primary">
+        <div className="flex h-16 items-center">
+            <Link href="/" className="flex items-center font-headline text-3xl font-bold text-primary lg:mr-8">
               Mahi's
             </Link>
-            <div className="flex items-center justify-end gap-4">
+
+            <div className="flex-1 px-4 hidden lg:flex">
+              <form className="relative w-full">
+                <Input
+                  type="search"
+                  placeholder="Search for services & products..."
+                  className="w-full rounded-md border-primary/30 h-10 pr-10"
+                />
+                <Button
+                  type="submit"
+                  size="icon"
+                  variant="ghost"
+                  className="absolute right-0 top-0 h-10 w-10 text-muted-foreground hover:text-primary"
+                >
+                  <Search className="h-5 w-5" />
+                  <span className="sr-only">Search</span>
+                </Button>
+              </form>
+            </div>
+
+            <div className="flex items-center justify-end gap-4 ml-auto">
               <div className="hidden lg:flex items-center gap-4">
                 {updatedIconNavItems.map((item) => (
                     <Link key={item.label} href={item.href} aria-label={item.label} className={cn("text-gray-700 hover:text-primary", isLinkActive(item.href) && 'text-primary')}>
@@ -208,7 +228,7 @@ export default function Header() {
                             ))}
                             </CollapsibleContent>
                         </Collapsible>
-                        
+
                         <Collapsible>
                             <CollapsibleTrigger className="flex justify-between items-center w-full py-2 text-lg font-medium">
                             <SheetClose asChild>
@@ -230,14 +250,11 @@ export default function Header() {
                             </CollapsibleContent>
                         </Collapsible>
 
-                        {otherMenus.map((item) =>(
-                            <SheetClose asChild key={item.title}>
-                                <Link href={item.href} className={cn("py-2 text-lg font-medium", isLinkActive(item.href) ? "text-primary" : "")}>
-                                {item.title}
-                                </Link>
+                        {otherMenus.map(menu => (
+                            <SheetClose asChild key={menu.title}>
+                                <Link href={menu.href} className="block py-2 text-lg font-medium">{menu.title}</Link>
                             </SheetClose>
-                            )
-                        )}
+                        ))}
                         </div>
                     </div>
                     </SheetContent>
@@ -247,27 +264,24 @@ export default function Header() {
         </div>
 
         {/* Bottom Layer */}
-        <nav className="hidden lg:flex h-14 items-center justify-center space-x-8 text-sm font-medium border-t">
-            <div className="group relative">
-                <Link href={servicesMenu.href} className={cn("flex items-center gap-1 text-gray-800 hover:text-primary", isLinkActive(servicesMenu.href) && 'text-primary')}>
-                {servicesMenu.title} <ChevronDown className="h-4 w-4" />
+        <div className="hidden lg:flex h-12 items-center justify-center">
+            <nav className="flex items-center space-x-8">
+            {[servicesMenu, shopMenu].map((menu) => (
+                <div key={menu.title} className="group relative">
+                <Link href={menu.href} className={cn("flex items-center gap-1 text-sm font-semibold tracking-wider text-gray-700 transition-colors hover:text-primary", isLinkActive(menu.href) && "text-primary")}>
+                    {menu.title}
+                    <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
                 </Link>
-                <MegaMenu menu={servicesMenu} />
-            </div>
-            <div className="group relative">
-                <Link href={shopMenu.href} className={cn("flex items-center gap-1 text-gray-800 hover:text-primary", isLinkActive(shopMenu.href) && 'text-primary')}>
-                {shopMenu.title} <ChevronDown className="h-4 w-4" />
-                </Link>
-                <MegaMenu menu={shopMenu} />
-            </div>
-            {otherMenus.map((item) => (
-                <div key={item.title} className="group relative">
-                <Link href={item.href} className={cn("text-gray-800 hover:text-primary", isLinkActive(item.href) && 'text-primary')}>
-                    {item.title}
-                </Link>
+                <MegaMenu menu={menu} />
                 </div>
             ))}
-        </nav>
+            {otherMenus.map((menu) => (
+                <Link key={menu.title} href={menu.href} className={cn("text-sm font-semibold tracking-wider text-gray-700 transition-colors hover:text-primary", isLinkActive(menu.href) && "text-primary")}>
+                {menu.title}
+                </Link>
+            ))}
+            </nav>
+        </div>
       </div>
     </header>
   );
