@@ -98,13 +98,10 @@ const MegaMenu = ({ menu }: { menu: typeof servicesMenu | typeof shopMenu }) => 
 
 export default function Header() {
   const pathname = usePathname();
-  const { cart } = useCart();
-  const { isAuthenticated } = useAuth();
-  const [isMounted, setIsMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const { cart, isMounted: isCartMounted } = useCart();
+  const { isAuthenticated, isMounted: isAuthMounted } = useAuth();
+  
+  const isMounted = isCartMounted && isAuthMounted;
 
   const isLinkActive = (href: string) => {
     if (href === '/') {

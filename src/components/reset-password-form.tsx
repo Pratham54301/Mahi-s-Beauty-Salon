@@ -22,30 +22,85 @@ import { Loader2, KeyRound, CheckCircle } from "lucide-react";
 // This is a placeholder for the temporary password validation
 const FAKE_TEMP_PASSWORD = "TEMP-PASSWORD-123";
 
-const formSchema = z.object({
-    step: z.enum(["validate", "reset"]),
-    email: z.string().email().optional(),
-    tempPassword: z.string().optional(),
-    newPassword: z.string().optional(),
-    confirmPassword: z.string().optional(),
-}).superRefine((data, ctx) => {
-    if (data.step === 'validate') {
-        if (!data.email) {
-            ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Email is required.", path: ["email"]});
-        }
-        if (!data.tempPassword) {
-            ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Temporary password is required.", path: ["tempPassword"]});
-        }
-    }
-    if (data.step === 'reset') {
-        if (!data.newPassword || data.newPassword.length < 8) {
-            ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Password must be at least 8 characters.", path: ["newPassword"]});
-        }
-        if (data.newPassword !== data.confirmPassword) {
-            ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Passwords do not match.", path: ["confirmPassword"]});
-        }
-    }
+const validationSchema = z.object({
+    email: z.string().email({ message: "Please enter a valid email address." }),
+    tempPassword: z.string().min(1, { message: "Temporary password is required." }),
 });
+
+const resetSchema = z.object({
+    newPassword: z.string().min(8, { message: "Password must be at least 8 characters." }),
+    confirmPassword: z.string()
+}).refine(data => data.newPassword === data.confirmPassword, {
+    message: "Passwords do not match.",
+    path: ["confirmPassword"],
+});
+
+
+function ValidatePasswordForm({ onSuccess, onLoading, onError, isLoading, error }: { onSuccess: () => void, onLoading: (loading: boolean) => void, onError: (error: string | null) => void, isLoading: boolean, error: string | null }) {
+    const form = useForm<z.infer<typeof validationSchema>>({
+        resolver: zodResolver(validationSchema),
+        defaultValues: {
+          email: '',
+          tempPassword: '',
+        },
+      });
+
+      async function onSubmit(values: z.infer<typeof validationSchema>) {
+        onLoading(true);
+        onError(null);
+        await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API call
+        
+        if (values.tempPassword === FAKE_TEMP_PASSWORD) {
+          onSuccess();
+        } else {
+          onError("The temporary password you entered is incorrect. Please try again.");
+        }
+        onLoading(false);
+      }
+    
+    return (
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <FormField control={form.control} name="email" render={({ field }) => ( <FormItem> <FormLabel>Email</FormLabel> <FormControl> <Input placeholder="you@example.com" {...field} /> </FormControl> <FormMessage /> </FormItem> )}/>
+                <FormField control={form.control} name="tempPassword" render={({ field }) => ( <FormItem> <FormLabel>Temporary Password</FormLabel> <FormControl> <Input placeholder="Enter the temporary password" {...field} /> </FormControl> <FormMessage /> </FormItem> )}/>
+                {error && <p className="text-sm font-medium text-destructive">{error}</p>}
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Validate Password'}
+                </Button>
+            </form>
+        </Form>
+    )
+}
+
+function SetNewPasswordForm({ onSuccess, onLoading, isLoading }: { onSuccess: () => void, onLoading: (loading: boolean) => void, isLoading: boolean }) {
+    const form = useForm<z.infer<typeof resetSchema>>({
+        resolver: zodResolver(resetSchema),
+        defaultValues: {
+          newPassword: '',
+          confirmPassword: '',
+        },
+      });
+    
+      async function onSubmit(values: z.infer<typeof resetSchema>) {
+        onLoading(true);
+        await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API call
+        console.log("Password has been reset successfully:", values.newPassword);
+        onSuccess();
+        onLoading(false);
+      }
+
+    return (
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <FormField control={form.control} name="newPassword" render={({ field }) => ( <FormItem> <FormLabel>New Password</FormLabel> <FormControl> <Input type="password" placeholder="••••••••" {...field} /> </FormControl> <FormMessage /> </FormItem> )}/>
+                <FormField control={form.control} name="confirmPassword" render={({ field }) => ( <FormItem> <FormLabel>Confirm New Password</FormLabel> <FormControl> <Input type="password" placeholder="••••••••" {...field} /> </FormControl> <FormMessage /> </FormItem> )}/>
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Reset Password'}
+                </Button>
+            </form>
+        </Form>
+    )
+}
 
 
 export default function ResetPasswordForm() {
@@ -53,35 +108,6 @@ export default function ResetPasswordForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      step: 'validate',
-      email: '',
-      tempPassword: '',
-      newPassword: '',
-      confirmPassword: '',
-    },
-  });
-
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsLoading(true);
-    setError(null);
-    await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API call
-    
-    if (values.step === 'validate') {
-      if (values.tempPassword === FAKE_TEMP_PASSWORD) {
-        setFormStep('reset');
-        form.setValue('step', 'reset');
-      } else {
-        setError("The temporary password you entered is incorrect. Please try again.");
-      }
-    } else if (values.step === 'reset') {
-        console.log("Password has been reset successfully:", values.newPassword);
-        setFormStep('success');
-    }
-    setIsLoading(false);
-  }
 
   if (formStep === 'success') {
     return (
@@ -112,30 +138,22 @@ export default function ResetPasswordForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            {formStep === 'validate' && (
-              <>
-                <FormField control={form.control} name="email" render={({ field }) => ( <FormItem> <FormLabel>Email</FormLabel> <FormControl> <Input placeholder="you@example.com" {...field} /> </FormControl> <FormMessage /> </FormItem> )}/>
-                <FormField control={form.control} name="tempPassword" render={({ field }) => ( <FormItem> <FormLabel>Temporary Password</FormLabel> <FormControl> <Input placeholder="Enter the temporary password" {...field} /> </FormControl> <FormMessage /> </FormItem> )}/>
-              </>
-            )}
-             {formStep === 'reset' && (
-              <>
-                <FormField control={form.control} name="newPassword" render={({ field }) => ( <FormItem> <FormLabel>New Password</FormLabel> <FormControl> <Input type="password" placeholder="••••••••" {...field} /> </FormControl> <FormMessage /> </FormItem> )}/>
-                <FormField control={form.control} name="confirmPassword" render={({ field }) => ( <FormItem> <FormLabel>Confirm New Password</FormLabel> <FormControl> <Input type="password" placeholder="••••••••" {...field} /> </FormControl> <FormMessage /> </FormItem> )}/>
-              </>
-            )}
-
-            {error && <p className="text-sm font-medium text-destructive">{error}</p>}
-
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 
-               formStep === 'validate' ? 'Validate Password' : 'Reset Password'
-              }
-            </Button>
-          </form>
-        </Form>
+        {formStep === 'validate' && (
+            <ValidatePasswordForm
+                onSuccess={() => setFormStep('reset')}
+                onLoading={setIsLoading}
+                onError={setError}
+                isLoading={isLoading}
+                error={error}
+            />
+        )}
+        {formStep === 'reset' && (
+            <SetNewPasswordForm
+                onSuccess={() => setFormStep('success')}
+                onLoading={setIsLoading}
+                isLoading={isLoading}
+            />
+        )}
       </CardContent>
     </Card>
   );

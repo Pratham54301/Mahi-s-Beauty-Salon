@@ -11,15 +11,17 @@ import { useCart, CartProvider } from '@/context/cart-context';
 
 function OrderSuccessContent() {
     const [orderId, setOrderId] = useState('');
-    const { clearCart } = useCart();
+    const { clearCart, isMounted } = useCart();
 
     useEffect(() => {
         // Generate order ID on the client side to avoid hydration mismatch
         setOrderId(Math.random().toString(36).substring(2, 10).toUpperCase());
         
         // Clear cart after order is successful
-        clearCart();
-    }, [clearCart]);
+        if (isMounted) {
+            clearCart();
+        }
+    }, [clearCart, isMounted]);
 
     return (
         <div className="flex-1 flex flex-col items-center justify-center text-center py-16 md:py-24">
